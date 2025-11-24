@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập / Đăng ký - Freelancer</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/themify-icons-font/themify-icons.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="login.css" />
+</head>
+
+<body class="auth-page-magenta"> <div class="auth-container">
+        <div class="auth-image">
+            <div class="text-content">
+                <h2>Freelancer</h2>
+                <ul>
+                    <li>Đăng việc – chọn freelancer – nhận sản phẩm ngay</li>
+                    <li>Giao diện đơn giản, thao tác nhanh chóng</li>
+                    <li>Hỗ trợ 24/7 trong mọi bước bạn cần</li>
+                </ul>
+            </div>
+        </div>
+
+            <div class="auth-form-side">
+                <div class="header-logo">
+                    <h1><a href="index.html">freelancer</a></h1>
+                </div>
+
+            <div class="form-box">
+                <div id="loginSection" class="auth-section active">
+                    <h3 class="section-title">Chào mừng trở lại! </h3>
+                    
+                    <form id="loginForm" action="register_process.html" method="GET">
+                        <div class="input-group">
+                            <i class="ti-email"></i>
+                            <input type="email" id="login_email" name="login_email" placeholder="Nhập email của bạn" required />
+                        </div>
+
+                        <div class="input-group">
+                            <i class="ti-lock"></i>
+                            <input type="password" id="login_password" name="login_password" placeholder="Nhập mật khẩu" required />
+                            <i class="ti-eye toggle-password" 
+                               onclick="togglePassword('login_password', this)"
+                               style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #999;">
+                            </i>
+                        </div>
+
+                        <div style="text-align: right; margin-bottom: 15px;">
+                            <a href="#" style="font-size: 13px; color: #666; text-decoration: none;">Quên mật khẩu?</a>
+                        </div>
+
+                        <button type="submit" class="form-btn">Đăng nhập</button>
+                    </form>
+
+                    <div class="switch-link" style="margin-top: 20px; text-align: center;">
+                        <p>Bạn chưa có tài khoản? <a href="#" id="switchToRegister" style="color: #e60278; font-weight: 600;">Đăng ký ngay</a></p>
+                    </div>
+                </div>
+
+                <div id="registerSection" class="auth-section" style="display: none;">
+                    <h3 class="section-title">Tạo tài khoản mới </h3>
+                    <form id="registerForm" action="login.html" method="GET">
+                        <div class="input-group">
+                            <i class="ti-user"></i>
+                            <input type="text" id="name" name="name" placeholder="Tên hiển thị" required />
+                        </div>
+
+                        <div class="input-group">
+                            <i class="ti-email"></i>
+                            <input type="email" id="email" name="email" placeholder="Email của bạn" required />
+                        </div>
+
+                        <div class="input-group">
+                            <i class="ti-lock"></i>
+                            <input type="password" id="reg_password" name="password" placeholder="Mật khẩu" required />
+                            <div class="input-group">
+                            <i class="ti-lock1>"></i>
+                            <input type="password" id="reg_password" name="password" placeholder="Nhập lại mật khẩu" required />
+                            <i class="ti-eye toggle-password" 
+                               onclick="togglePassword('reg_password', this)"></i>
+                              
+                            </i>
+                        </div>
+                            <button type="submit" class="form-btn">Người làm freenlancer</button>
+                        <button type="submit" class="form-btn">Người tuyển dụng freenlancer</button>
+                    </form>
+
+                    <div class="switch-link" style="margin-top: 20px; text-align: center;">
+                        <p>Đã có tài khoản? <a href="#" id="switchToLogin" style="color: #e60278; font-weight: 600;">Đăng nhập</a></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const loginSection = document.getElementById("loginSection");
+            const registerSection = document.getElementById("registerSection");
+            const switchToRegister = document.getElementById("switchToRegister");
+            const switchToLogin = document.getElementById("switchToLogin");
+
+            // Chuyển sang Đăng ký
+            switchToRegister.addEventListener("click", function (e) {
+                e.preventDefault();
+                loginSection.style.display = "none";
+                registerSection.style.display = "block";
+            });
+
+            // Chuyển về Đăng nhập
+            switchToLogin.addEventListener("click", function (e) {
+                e.preventDefault();
+                registerSection.style.display = "none";
+                loginSection.style.display = "block";
+            });
+        });
+
+        // Hàm Ẩn/Hiện mật khẩu
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.style.color = "#e60278"; // Đổi màu icon khi hiện
+            } else {
+                input.type = "password";
+                icon.style.color = "#999"; // Đổi màu icon khi ẩn
+            }
+        }
+    </script>
+</body>
+</html>

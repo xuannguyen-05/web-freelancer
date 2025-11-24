@@ -1,0 +1,733 @@
+/* ==================================== */
+/* 🎨 0. CÁC BIẾN (VARIABLES) & RESET */
+/* ==================================== */
+
+:root {
+    /* Màu chủ đạo: Dựa trên màu xanh #2196f3 trong mã của bạn */
+    --primary-color: #2196f3;
+    /* Màu chữ chính: #404145 */
+    --secondary-color: #404145; 
+    /* Màu chữ phụ/mờ: #62646a (dùng cho links) */
+    --text-light: #62646a;
+    /* Màu chữ rất mờ: #95979d (dùng cho info/search) */
+    --text-muted: #95979d;
+    /* Màu đường kẻ mờ: #e4e5e7 */
+    --border-color: #e4e5e7;
+    /* Màu nền nhẹ */
+    --background-light: #f7f7f7;
+    /* Màu chữ đen cho các thành phần đặc biệt */
+    --text-dark: #222325;
+}
+
+/* Reset và Font chữ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--secondary-color);
+    background-color: #fff;
+}
+
+/* Layout chính */
+.container, .main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: var(--secondary-color);
+    transition: color 0.2s;
+}
+
+
+/* ==================================== */
+/* ➡️ 1. HEADER CHÍNH & THANH TÌM KIẾM */
+/* ==================================== */
+.header {
+    /* Class .header (Gốc) */
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.main-header {
+    /* Class .main-header (Fiverr) */
+    position: sticky; 
+    top: 0;
+    z-index: 1000;
+    background-color: #fff;
+    border-bottom: 1px solid var(--border-color);
+}
+.header-container, .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    /* padding: 20px 24px đã được định nghĩa trong .container/.main-container */
+}
+
+/* Logo */
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-right: 32px;
+}
+.logo .dot {
+    color: var(--primary-color); 
+}
+.fiverr-text {
+    font-size: 20px; 
+    font-weight: bold;
+    font-style: italic;
+    color: var(--secondary-color);
+}
+.fiverr-dot {
+    color: var(--primary-color);
+}
+
+/* Nav Menu (Gốc) */
+.nav-menu {
+    display: flex;
+    gap: 24px;
+    margin-left: auto;
+    margin-right: 24px;
+}
+.nav-menu a {
+    color: var(--text-light);
+    font-weight: 500;
+    font-size: 16px;
+}
+.nav-menu a:hover {
+    color: var(--primary-color);
+}
+.main-content {
+    position: relative;
+    min-height: calc(80vh ); /* 100vh trừ chiều cao header */
+    background-image: url('https://kenh14cdn.com/203336854389633024/2022/7/21/photo-3-16583955195971316794122.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 100px;
+}
+
+/* Lớp phủ tối để chữ trắng nổi bật hơn */
+.main-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6); /* Điều chỉnh độ tối ở đây */
+    z-index: 1;
+}
+
+/* Đảm bảo nội dung nằm trên ảnh nền */
+.hero-title,
+.search-section,
+.search-wrapper,
+.filter-tags {
+    position: relative;
+    z-index: 2;
+}
+
+/* Làm chữ title trắng để dễ đọc */
+.hero-title {
+    color: white;
+}   
+/* Header Right Buttons */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.btn {
+    font-weight: 600;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+.btn-login {
+    color: var(--text-light);
+}
+.btn-login:hover {
+    color: var(--primary-color);
+}
+.btn-join {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+.btn-join:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+/* Button Fiverr */
+.btn-join-fiverr-header {
+    padding: 5px 15px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+.login-join-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.login-join-menu a {
+    color: var(--secondary-color);
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/* Thanh Tìm kiếm (Chính) */
+.search-bar-primary {
+    max-width: 450px;
+    margin: 0 20px;
+    display: flex;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+.search-bar-primary input[type="text"] {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+    color: var(--secondary-color);
+}
+.search-button {
+    background-color: var(--text-dark);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* ==================================== */
+/* 🚀 2. SECONDARY NAV (Dưới Header) */
+/* ==================================== */
+.secondary-nav-wrapper {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.secondary-nav-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.secondary-links {
+    gap: 20px;
+    display: flex;
+    white-space: nowrap;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+.secondary-links a {
+    color: var(--secondary-color); 
+    font-size: 15px;
+    padding: 0 5px 5px 5px; 
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+.secondary-links a:hover,
+.secondary-links a.trending {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+
+/* ==================================== */
+/* 🌟 3. HERO CONTENT (GỐC) & BANNER */
+/* ==================================== */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 0;
+}
+.hero-title {
+    font-size: 48px;
+    line-height: 1.2;
+    color: var(--secondary-color);
+    margin-bottom: 32px;
+}
+
+/* Search Box (Gốc) */
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    width: 100%;
+}
+.search-bar {
+    width: 100%;
+    padding: 14px 48px 14px 16px;
+    font-size: 16px;
+    border: 1px solid #c5c6c9;
+    border-radius: 4px;
+    outline: none;
+}
+.search-bar:focus {
+    border-color: var(--primary-color);
+}
+.search-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+.search-info {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+/* Tags (Gốc) */
+.filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    background-color: #fff;
+    border: 1px solid #c5c6c9;
+    border-radius: 20px;
+    font-size: 13px;
+    color: var(--text-light);
+    font-weight: 600;
+    cursor: pointer;
+}
+.tag:hover {
+    border-color: var(--secondary-color);
+}
+.tag-close {
+    margin-left: 8px;
+    font-size: 16px;
+    color: var(--text-muted);
+}
+
+/* Hero Banner (Fiverr) */
+.hero-banner-fiverr {
+    background-color: #551D35;
+    padding: 100px 0;
+    text-align: center;
+    margin-bottom: 50px;
+    border-radius: 4px;
+}
+.hero-banner-fiverr h1 {
+    font-size: 55px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 30px;
+}
+.hero-banner-fiverr .highlight {
+    color: #F8B48F;
+    font-style: italic;
+}
+.btn-join-fiverr {
+    display: inline-block;
+    background-color: #fff;
+    color: #551D35;
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+.btn-join-fiverr:hover {
+    background-color: #f0f0f0;
+}
+
+
+/* ==================================== */
+/* 🤝 4. BOTTOM NAV (Trusted By) & CATEGORIES */
+/* ==================================== */
+.bottom-nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 30px 0;
+    border-top: 1px solid #f0f0f0;
+    color: #b5b6ba;
+}
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.nav-label {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Category Section (Gốc) */
+.category-section {
+    padding: 80px 0;
+    background-color: #fff;
+}
+.section-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--secondary-color);
+    text-align: center;
+    margin-bottom: 50px;
+}
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+}
+.category-card {
+    display: block;
+    padding: 30px 20px;
+    border: 1px solid #e4e4e4;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    border-color: var(--primary-color);
+}
+.category-icon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 15px;
+}
+.category-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 5px;
+}
+.category-desc {
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+
+/* ==================================== */
+/* ⭐️ 5. POPULAR SERVICES & GALLERY */
+/* ==================================== */
+.main-content-block {
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+.top-categories {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #e4e4e4;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.category-icon-item {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    margin: 0 5px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    min-width: 100px;
+}
+.category-icon-item:hover {
+    border-color: var(--background-light);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.category-icon-item p {
+    font-size: 14px;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+.icon-placeholder {
+    display: inline-block;
+    font-size: 30px;
+    color: var(--text-light);
+    margin-bottom: 5px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.section-title-fiverr {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+}
+.popular-services-carousel {
+    display: flex;
+    gap: 20px;
+    overflow-x: hidden;
+    position: relative;
+    padding-right: 50px;
+}
+.service-card {
+    min-width: 250px;
+    max-width: 250px;
+    height: 350px;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--primary-color);
+}
+/* ... Các quy tắc CSS cho thẻ dịch vụ và màu nền (pink-bg, yellow-bg, etc.) giữ nguyên ... */
+.service-title-wrap {
+    position: absolute; top: 0; left: 0; padding: 20px 25px; z-index: 10;
+}
+.service-card h3 {
+    font-size: 24px; font-weight: 700; color: #fff; line-height: 1.2;
+}
+.service-image-area {
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 65%; background-color: #f0f0f0; border-radius: 4px;
+}
+.pink-bg { background-color: #ffe6f2; }
+.yellow-bg { background-color: #ffffcc; }
+.light-green-bg { background-color: #e0f8e0; }
+.pink-bg-2 { background-color: #f9e2e7; }
+.light-yellow-bg { background-color: #fff9e6; }
+.carousel-arrow-btn {
+    position: absolute; right: 0; top: 50%; transform: translateY(-50%); background-color: #fff; border: 1px solid #ccc; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; font-weight: bold; color: var(--secondary-color); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); cursor: pointer;
+}
+
+/* Made on Fiverr Gallery */
+.made-on-fiverr-section {
+    padding: 50px 0;
+    background-color: var(--background-light);
+}
+.fiverr-gallery-grid {
+    display: flex;
+    gap: 15px;
+}
+.gallery-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.gallery-item {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.gallery-item:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+/* ... Các quy tắc kích thước gallery item giữ nguyên ... */
+.large-square { height: 300px; }
+.large-vertical { height: 400px; }
+.small-square { height: 200px; }
+.column-1 .large-vertical { height: 380px; }
+.column-1 .small-square { height: 250px; }
+.column-2 .large-square { height: 645px; }
+.column-3 .large-vertical { height: 330px; }
+.column-3 .large-square { height: 300px; }
+.column-4 .large-vertical { height: 380px; }
+.column-4 .large-square { height: 250px; }
+
+
+/* ==================================== */
+/* 📄 6. FOOTER CHI TIẾT */
+/* ==================================== */
+
+/* Secondary Nav Phụ (trên Footer) */
+.secondary-nav-full-footer {
+    background-color: #fff;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 0;
+}
+.secondary-nav-content-footer {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.secondary-nav-content-footer a {
+    color: var(--secondary-color);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 5px;
+    border-bottom: 2px solid transparent;
+}
+.secondary-nav-content-footer a:hover,
+.secondary-nav-content-footer a.trending {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+/* Footer Chính (5 cột) */
+.fiverr-footer-full {
+    background-color: #fff;
+    padding-top: 50px;
+}
+.footer-content-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 50px;
+}
+.footer-col {
+    flex: 1;
+    min-width: 150px;
+}
+.footer-col h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+.footer-col ul li {
+    margin-bottom: 8px;
+}
+.footer-col ul li a {
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 400;
+}
+.footer-col ul li a:hover {
+    color: var(--primary-color);
+}
+
+/* Footer Bottom Bar */
+.footer-bottom-bar {
+    border-top: 1px solid #e4e4e4;
+    padding: 20px 0;
+}
+.footer-bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.copyright {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 14px;
+    color: var(--text-light);
+}
+.social-and-language {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.social-icons a {
+    font-size: 18px;
+    margin-left: 10px;
+    color: var(--text-light);
+}
+.social-icons a:hover {
+    color: var(--primary-color);
+}
+.language-currency {
+    font-size: 14px;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.language-currency a {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+
+/* ==================================== */
+/* 📱 7. MEDIA QUERIES (Responsive) */
+/* ==================================== */
+@media (max-width: 1200px) {
+    .fiverr-gallery-grid {
+        gap: 10px;
+    }
+    .footer-content-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 992px) {
+    .fiverr-gallery-grid {
+        flex-wrap: wrap;
+    }
+    .gallery-column {
+        flex: 1 1 48%;
+        max-width: 48%;
+    }
+    .column-2 .large-square,
+    .column-4 .large-vertical {
+        height: auto;
+    }
+}
+@media (max-width: 768px) {
+    .main-content {
+        align-items: center;
+        text-align: center;
+    }
+    .fiverr-gallery-grid {
+        flex-direction: column;
+    }
+    .gallery-column {
+        max-width: 100%;
+    }
+    .gallery-item {
+        height: 250px !important;
+    }
+    .footer-content-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .footer-bottom-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+@media (max-width: 600px) {
+    .footer-content-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}

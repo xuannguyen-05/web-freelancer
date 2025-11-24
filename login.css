@@ -1,0 +1,277 @@
+/* Reset cơ bản */
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+
+body.auth-page-magenta {
+  background: #f8f9fa; 
+  font-family: "Inter", sans-serif;
+}
+
+/* Container chính 2 cột */
+.auth-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* 1. CỘT HÌNH ẢNH (BÊN TRÁI) */
+.auth-image {
+  flex-basis: 50%;
+  position: relative;
+  background-image: url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d29ya2luZyUyMGNvbXBhbnl8ZW58MHx8MHx8fDA%3D&w=1000&q=80");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Overlay gradient */
+.auth-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(33, 150, 243, 0.6));
+  z-index: 1;
+}
+
+/* Nội dung text bên trái */
+.text-content {
+  position: relative;
+  max-width: 500px;
+  color: white;
+  text-align: left;
+  z-index: 2;
+  padding: 3rem;
+}
+
+.text-content h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.text-content ul {
+  list-style: none;
+  margin: 0; 
+  padding: 0;
+}
+
+.text-content li {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.text-content li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* 2. CỘT FORM (BÊN PHẢI) */
+.auth-form-side {
+  flex-basis: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: #fff;
+}
+
+/* Logo header */
+.header-logo {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header-logo h1 {
+  margin: 0;
+}
+
+.header-logo h1 a {
+  color: #404145;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.header-logo h1 a:hover {
+  color: #2196f3;
+}
+
+/* Hộp form chính */
+.form-box {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+/* Section title */
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+/* Auth sections */
+.auth-section {
+  width: 100%;
+}
+
+/* Nhóm input */
+.input-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.input-group i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 15px;
+  color: #888;
+  font-size: 1.1rem;
+  z-index: 1;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: #333;
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #2196f3;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.15);
+  background: #fff;
+}
+
+/* Toggle password icon */
+.toggle-password {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+  color: #2196f3 !important;
+}
+
+/* Nút Submit */
+.form-btn {
+  width: 100%;
+  padding: 1rem;
+  background: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.form-btn:hover {
+  background: #1976d2;
+  box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+  transform: translateY(-2px);
+}
+
+.form-btn:active {
+  transform: translateY(0);
+}
+
+/* Switch link */
+.switch-link {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.switch-link p {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.switch-link a {
+  color: #e60278;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.switch-link a:hover {
+  color: #c4015f;
+  text-decoration: underline;
+}
+
+/* Responsive Mobile */
+@media (max-width: 850px) {
+  .auth-image {
+    display: none;
+  }
+  
+  .auth-form-side {
+    flex-basis: 100%;
+  }
+  
+  .form-box {
+    box-shadow: none;
+    padding: 1.5rem;
+  }
+  
+  .header-logo h1 a {
+    font-size: 2rem;
+  }
+  
+  .section-title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-box {
+    padding: 1rem;
+  }
+  
+  .input-group input {
+    padding: 0.875rem 0.875rem 0.875rem 2.75rem;
+    font-size: 0.95rem;
+  }
+  
+  .input-group i {
+    left: 12px;
+    font-size: 1rem;
+  }
+  
+  .form-btn {
+    padding: 0.875rem;
+    font-size: 1rem;
+  }
+}
