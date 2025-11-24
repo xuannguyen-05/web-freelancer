@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer - Tạo Gig Mới - Bước 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* --- Cấu hình chung cho thẻ a đóng vai trò button --- */
+        a.package-tab, a.btn-remove, a.btn-secondary, a.btn-back, a.btn-submit {
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 16px 0;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2196f3;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            color: #666;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: #2196f3;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .progress-section {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+        }
+
+        .progress-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .step-number.active {
+            background: #2196f3;
+            color: white;
+        }
+
+        .step-number.inactive {
+            background: #e0e0e0;
+            color: #999;
+        }
+
+        .step-text {
+            font-weight: 500;
+        }
+
+        .step-text.active {
+            color: #2196f3;
+        }
+
+        .step-text.inactive {
+            color: #999;
+        }
+
+        .progress-line {
+            flex: 1;
+            height: 2px;
+            background: #e0e0e0;
+        }
+
+        .progress-line.completed {
+            background: #2196f3;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .required {
+            color: #f44336;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2196f3;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .package-tabs {
+            display: flex;
+            gap: 8px;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 24px;
+        }
+
+        .package-tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.3s;
+            text-transform: capitalize;
+        }
+
+        .package-tab.active {
+            color: #2196f3;
+            border-bottom-color: #2196f3;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .feature-item input {
+            flex: 1;
+        }
+
+        .btn-remove {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn-remove:hover {
+            background: #d32f2f;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #666;
+            border: 1px solid #ddd;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+            width: fit-content;
+        }
+
+        .btn-secondary:hover {
+            background: #f5f5f5;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .btn-back {
+            padding: 12px 24px;
+            background: white;
+            color: #666;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-back:hover {
+            background: #f5f5f5;
+        }
+
+        .btn-submit {
+            padding: 12px 32px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #1976d2;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .step-text {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">Freelancer</div>
+            <div class="header-right">
+                <a href="#" class="back-btn">Quay lại</a>
+                <div class="user-avatar">T</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="progress-section">
+        <div class="progress-container">
+            <div class="progress-step">
+                <div class="step-number active">1</div>
+                <span class="step-text active">Thông tin cơ bản</span>
+            </div>
+            <div class="progress-line completed"></div>
+            <div class="progress-step">
+                <div class="step-number active">2</div>
+                <span class="step-text active">Giá & Gói dịch vụ</span>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step">
+                <div class="step-number inactive">3</div>
+                <span class="step-text inactive">Hoàn tất</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>Gói Dịch Vụ & Giá</h2>
+            <p class="subtitle">Thiết lập các gói dịch vụ và giá của bạn</p>
+            
+            <div class="package-tabs">
+                <a href="javascript:void(0)" class="package-tab active" data-package="basic" onclick="switchPackage('basic')">Basic</a>
+                <a href="javascript:void(0)" class="package-tab" data-package="standard" onclick="switchPackage('standard')">Standard</a>
+                <a href="javascript:void(0)" class="package-tab" data-package="premium" onclick="switchPackage('premium')">Premium</a>
+            </div>
+
+            <div id="packageContent">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Tên gói</label>
+                        <input type="text" id="packageName" placeholder="Ví dụ: Basic Pack">
+                    </div>
+                    <div class="form-group">
+                        <label>Giá (USD)</label>
+                        <input type="number" id="packagePrice" min="5" placeholder="100">
+                    </div>
+                    <div class="form-group">
+                        <label>Thời gian giao (ngày)</label>
+                        <input type="number" id="packageDelivery" min="1" placeholder="4">
+                    </div>
+                    <div class="form-group">
+                        <label>Số lần chỉnh sửa</label>
+                        <input type="number" id="packageRevisions" min="0" placeholder="2">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tính năng gói</label>
+                    <div id="featuresContainer"></div>
+                    <a href="javascript:void(0)" class="btn-secondary" onclick="addFeature()">
+                        <span>+</span>
+                        Thêm tính năng
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Yêu cầu từ khách hàng</h3>
+            <p class="subtitle">Những thông tin bạn cần từ khách hàng để bắt đầu công việc</p>
+            <div id="requirementsContainer"></div>
+            <a href="javascript:void(0)" class="btn-secondary" onclick="addRequirement()">
+                <span>+</span>
+                Thêm yêu cầu
+            </a>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="javascript:void(0)" class="btn-back" onclick="goBack()">Quay lại</a>
+            <a href="javascript:void(0)" class="btn-submit" onclick="submitGig()">Đăng Gig</a>
+        </div>
+    </div>
+
+    <script>
+        var currentPackage = 'basic';
+        var packages = {
+            basic: {
+                name: '',
+                price: '',
+                delivery: '',
+                revisions: '',
+                features: ['']
+            },
+            standard: {
+                name: '',
+                price: '',
+                delivery: '',
+                revisions: '',
+                features: ['']
+            },
+            premium: {
+                name: '',
+                price: '',
+                delivery: '',
+                revisions: '',
+                features: ['']
+            }
+        };
+        var requirements = [''];
+
+        window.onload = function() {
+            var savedData = localStorage.getItem('gigData');
+            if (!savedData) {
+                window.location.href = 'create-gig-page1.html';
+                return;
+            }
+
+            var page2Data = localStorage.getItem('gigPage2Data');
+            if (page2Data) {
+                var data = JSON.parse(page2Data);
+                packages = data.packages || packages;
+                requirements = data.requirements || requirements;
+            }
+
+            loadPackageData();
+            renderRequirements();
+        };
+
+        function switchPackage(packageType) {
+            saveCurrentPackage();
+            currentPackage = packageType;
+            
+            var tabs = document.querySelectorAll('.package-tab');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            document.querySelector('[data-package="' + packageType + '"]').classList.add('active');
+            
+            loadPackageData();
+        }
+
+        function saveCurrentPackage() {
+            packages[currentPackage] = {
+                name: document.getElementById('packageName').value,
+                price: document.getElementById('packagePrice').value,
+                delivery: document.getElementById('packageDelivery').value,
+                revisions: document.getElementById('packageRevisions').value,
+                features: getFeatures()
+            };
+            saveData();
+        }
+
+        function loadPackageData() {
+            var pkg = packages[currentPackage];
+            document.getElementById('packageName').value = pkg.name || '';
+            document.getElementById('packagePrice').value = pkg.price || '';
+            document.getElementById('packageDelivery').value = pkg.delivery || '';
+            document.getElementById('packageRevisions').value = pkg.revisions || '';
+            renderFeatures();
+        }
+
+        function getFeatures() {
+            var inputs = document.querySelectorAll('.feature-input');
+            var features = [];
+            for (var i = 0; i < inputs.length; i++) {
+                features.push(inputs[i].value);
+            }
+            return features.length > 0 ? features : [''];
+        }
+
+        function renderFeatures() {
+            var container = document.getElementById('featuresContainer');
+            var features = packages[currentPackage].features;
+            var html = '';
+            
+            for (var i = 0; i < features.length; i++) {
+                html += '<div class="feature-item">' +
+                    '<input type="text" placeholder="Ví dụ: Custom Logo Design" class="feature-input" value="' + (features[i] || '') + '" onchange="saveCurrentPackage()">' +
+                    // Đổi thành thẻ a
+                    (features.length > 1 ? '<a href="javascript:void(0)" class="btn-remove" onclick="removeFeature(' + i + ')">×</a>' : '') +
+                    '</div>';
+            }
+            container.innerHTML = html;
+        }
+
+        function addFeature() {
+            packages[currentPackage].features.push('');
+            renderFeatures();
+            saveData();
+        }
+
+        function removeFeature(index) {
+            packages[currentPackage].features.splice(index, 1);
+            if (packages[currentPackage].features.length === 0) {
+                packages[currentPackage].features = [''];
+            }
+            renderFeatures();
+            saveData();
+        }
+
+        function getRequirements() {
+            var inputs = document.querySelectorAll('.requirement-input');
+            var reqs = [];
+            for (var i = 0; i < inputs.length; i++) {
+                reqs.push(inputs[i].value);
+            }
+            return reqs.length > 0 ? reqs : [''];
+        }
+
+        function renderRequirements() {
+            var container = document.getElementById('requirementsContainer');
+            var html = '';
+            
+            for (var i = 0; i < requirements.length; i++) {
+                html += '<div class="feature-item">' +
+                    '<input type="text" placeholder="Ví dụ: Tên công ty, màu sắc yêu thích..." class="requirement-input" value="' + (requirements[i] || '') + '" onchange="saveRequirements()">' +
+                    // Đổi thành thẻ a
+                    (requirements.length > 1 ? '<a href="javascript:void(0)" class="btn-remove" onclick="removeRequirement(' + i + ')">×</a>' : '') +
+                    '</div>';
+            }
+            container.innerHTML = html;
+        }
+
+        function addRequirement() {
+            requirements.push('');
+            renderRequirements();
+            saveData();
+        }
+
+        function removeRequirement(index) {
+            requirements.splice(index, 1);
+            if (requirements.length === 0) {
+                requirements = [''];
+            }
+            renderRequirements();
+            saveData();
+        }
+
+        function saveRequirements() {
+            requirements = getRequirements();
+            saveData();
+        }
+
+        function saveData() {
+            var data = {
+                packages: packages,
+                requirements: requirements
+            };
+            localStorage.setItem('gigPage2Data', JSON.stringify(data));
+        }
+
+        document.getElementById('packageName').addEventListener('change', saveCurrentPackage);
+        document.getElementById('packagePrice').addEventListener('change', saveCurrentPackage);
+        document.getElementById('packageDelivery').addEventListener('change', saveCurrentPackage);
+        document.getElementById('packageRevisions').addEventListener('change', saveCurrentPackage);
+
+        function goBack() {
+            saveCurrentPackage();
+            window.location.href = 'create-gig-page1.html';
+        }
+
+        function submitGig() {
+            saveCurrentPackage();
+            
+            var page1Data = JSON.parse(localStorage.getItem('gigData'));
+            var page2Data = {
+                packages: packages,
+                requirements: requirements
+            };
+            
+            var finalData = Object.assign({}, page1Data, page2Data);
+            localStorage.setItem('finalGigData', JSON.stringify(finalData));
+            
+            window.location.href = 'create-gig-page3.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer - Gig đã được tạo thành công</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* --- Cấu hình chung cho thẻ a đóng vai trò button --- */
+        a.btn-primary, a.btn-secondary {
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 16px 0;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2196f3;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            color: #666;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: #2196f3;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .progress-section {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+        }
+
+        .progress-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            background: #2196f3;
+            color: white;
+        }
+
+        .step-text {
+            font-weight: 500;
+            color: #2196f3;
+        }
+
+        .progress-line {
+            flex: 1;
+            height: 2px;
+            background: #2196f3;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 48px 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: #4caf50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            color: white;
+            font-size: 60px;
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-message h2 {
+            color: #4caf50;
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .success-message p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .gig-summary {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 24px;
+            margin: 32px 0;
+            text-align: left;
+        }
+
+        .gig-summary h3 {
+            color: #333;
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            font-weight: 600;
+            color: #666;
+            width: 150px;
+            flex-shrink: 0;
+        }
+
+        .summary-value {
+            color: #333;
+            flex: 1;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag-item {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 14px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 14px 32px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: #1976d2;
+        }
+
+        .btn-secondary {
+            padding: 14px 32px;
+            background: white;
+            color: #2196f3;
+            border: 2px solid #2196f3;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: #2196f3;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .step-text {
+                display: none;
+            }
+
+            .success-message h2 {
+                font-size: 24px;
+            }
+
+            .success-message p {
+                font-size: 16px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+            }
+
+            .summary-item {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .summary-label {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">Freelancer</div>
+            <div class="header-right">
+                <a href="#" class="back-btn">Trang chủ</a>
+                <div class="user-avatar">T</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="progress-section">
+        <div class="progress-container">
+            <div class="progress-step">
+                <div class="step-number">✓</div>
+                <span class="step-text">Thông tin cơ bản</span>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step">
+                <div class="step-number">✓</div>
+                <span class="step-text">Giá & Gói dịch vụ</span>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step">
+                <div class="step-number">✓</div>
+                <span class="step-text">Hoàn tất</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="success-icon">✓</div>
+            <div class="success-message">
+                <h2>Chúc mừng!</h2>
+                <p>
+                    Gig của bạn đã được tạo và đăng thành công!<br>
+                    Bây giờ bạn có thể quản lý gig hoặc tạo thêm gig mới.
+                </p>
+            </div>
+
+            <div class="gig-summary" id="gigSummary">
+                <h3>📋 Tóm tắt Gig của bạn</h3>
+                <div class="summary-item">
+                    <div class="summary-label">Tiêu đề:</div>
+                    <div class="summary-value" id="summaryTitle">-</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Danh mục:</div>
+                    <div class="summary-value" id="summaryCategory">-</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Tags:</div>
+                    <div class="summary-value">
+                        <div class="tag-list" id="summaryTags"></div>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Gói Basic:</div>
+                    <div class="summary-value" id="summaryBasic">-</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Gói Standard:</div>
+                    <div class="summary-value" id="summaryStandard">-</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Gói Premium:</div>
+                    <div class="summary-value" id="summaryPremium">-</div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <a href="gig.html" class="btn-primary">Xem Gig của tôi</a>
+                <a href="create-gig-page1.html" class="btn-secondary">Tạo Gig mới</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            var finalData = localStorage.getItem('finalGigData');
+            
+            if (!finalData) {
+                window.location.href = 'create-gig-page1.html';
+                return;
+            }
+
+            var data = JSON.parse(finalData);
+            
+            document.getElementById('summaryTitle').textContent = data.title || 'Chưa có tiêu đề';
+            document.getElementById('summaryCategory').textContent = (data.category ? data.category : 'Chưa chọn') + 
+                (data.subCategory ? ' / ' + data.subCategory : '');
+            
+            var tagsHtml = '';
+            if (data.tags && data.tags.length > 0) {
+                for (var i = 0; i < data.tags.length; i++) {
+                    tagsHtml += '<span class="tag-item">' + data.tags[i] + '</span>';
+                }
+            } else {
+                tagsHtml = 'Chưa có tags';
+            }
+            document.getElementById('summaryTags').innerHTML = tagsHtml;
+            
+            if (data.packages) {
+                var basicInfo = data.packages.basic.name + 
+                    (data.packages.basic.price ? ' - $' + data.packages.basic.price : '') +
+                    (data.packages.basic.delivery ? ' - ' + data.packages.basic.delivery + ' ngày' : '');
+                document.getElementById('summaryBasic').textContent = basicInfo || 'Chưa thiết lập';
+                
+                var standardInfo = data.packages.standard.name + 
+                    (data.packages.standard.price ? ' - $' + data.packages.standard.price : '') +
+                    (data.packages.standard.delivery ? ' - ' + data.packages.standard.delivery + ' ngày' : '');
+                document.getElementById('summaryStandard').textContent = standardInfo || 'Chưa thiết lập';
+                
+                var premiumInfo = data.packages.premium.name + 
+                    (data.packages.premium.price ? ' - $' + data.packages.premium.price : '') +
+                    (data.packages.premium.delivery ? ' - ' + data.packages.premium.delivery + ' ngày' : '');
+                document.getElementById('summaryPremium').textContent = premiumInfo || 'Chưa thiết lập';
+            }
+
+
+            console.log('Gig Data:', data);
+        };
+
+        function clearGigData() {
+            localStorage.removeItem('gigData');
+            localStorage.removeItem('gigPage2Data');
+            localStorage.removeItem('finalGigData');
+        }
+    </script>
+</body>
+</html>

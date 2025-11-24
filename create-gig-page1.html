@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer - Tạo Gig Mới - Bước 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* --- Cấu hình chung cho thẻ a đóng vai trò button --- */
+        a.btn-add, a.btn-next, a.tag-remove, a.image-remove {
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            cursor: pointer;
+        }
+        
+        /* Class disabled giả lập cho thẻ a */
+        a.disabled {
+            pointer-events: none;
+            background: #ccc !important;
+            cursor: not-allowed;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 16px 0;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2196f3;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            color: #666;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: #2196f3;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .progress-section {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+        }
+
+        .progress-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .step-number.active {
+            background: #2196f3;
+            color: white;
+        }
+
+        .step-number.inactive {
+            background: #e0e0e0;
+            color: #999;
+        }
+
+        .step-text {
+            font-weight: 500;
+        }
+
+        .step-text.active {
+            color: #2196f3;
+        }
+
+        .step-text.inactive {
+            color: #999;
+        }
+
+        .progress-line {
+            flex: 1;
+            height: 2px;
+            background: #e0e0e0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .required {
+            color: #f44336;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2196f3;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 13px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .tag-input-wrapper {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .tag-input-wrapper input {
+            flex: 1;
+        }
+
+        .btn-add {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: background 0.3s;
+            height: 45px; /* Để thẳng hàng với input */
+        }
+
+        .btn-add:hover {
+            background: #1976d2;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .tag-remove {
+            background: none;
+            border: none;
+            color: #1976d2;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+
+        .image-item {
+            aspect-ratio: 1;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-remove {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #f44336;
+            color: white;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .image-upload-box {
+            aspect-ratio: 1;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .image-upload-box:hover {
+            border-color: #2196f3;
+            background: #f0f8ff;
+        }
+
+        .image-upload-box svg {
+            width: 40px;
+            height: 40px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .upload-text {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .btn-next {
+            padding: 12px 32px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-next:hover {
+            background: #1976d2;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .image-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .step-text {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">Freelancer</div>
+            <div class="header-right">
+                <a href="#" class="back-btn">Quay lại</a>
+                <div class="user-avatar">T</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="progress-section">
+        <div class="progress-container">
+            <div class="progress-step">
+                <div class="step-number active">1</div>
+                <span class="step-text active">Thông tin cơ bản</span>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step">
+                <div class="step-number inactive">2</div>
+                <span class="step-text inactive">Giá & Gói dịch vụ</span>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step">
+                <div class="step-number inactive">3</div>
+                <span class="step-text inactive">Hoàn tất</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>Tạo Gig Mới</h2>
+            <p class="subtitle">Điền thông tin về dịch vụ bạn muốn cung cấp</p>
+            
+            <div class="form-group">
+                <label>Tiêu đề Gig <span class="required">*</span></label>
+                <input type="text" id="gigTitle" maxlength="80" placeholder="Ví dụ: Tôi sẽ thiết kế một logo huy hiệu cổ điển nguyên bản">
+                <div class="char-count"><span id="titleCount">0</span>/80</div>
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Danh mục <span class="required">*</span></label>
+                    <select id="category">
+                        <option value="">Chọn danh mục</option>
+                        <option value="graphics">Graphics & Design</option>
+                        <option value="programming">Programming & Tech</option>
+                        <option value="marketing">Digital Marketing</option>
+                        <option value="video">Video & Animation</option>
+                        <option value="writing">Writing & Translation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Danh mục con <span class="required">*</span></label>
+                    <select id="subCategory" disabled>
+                        <option value="">Chọn danh mục con</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Tags (Tối đa 5) <span class="required">*</span></label>
+                <div class="tag-input-wrapper">
+                    <input type="text" id="tagInput" placeholder="Nhập tag và nhấn Enter">
+                    <a href="javascript:void(0)" class="btn-add" id="addTagBtn">Thêm</a>
+                </div>
+                <div class="tags-container" id="tagsContainer"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Mô tả Gig <span class="required">*</span></h3>
+            <div class="form-group">
+                <textarea id="description" placeholder="Mô tả chi tiết về dịch vụ của bạn, bao gồm những gì bạn sẽ làm, quy trình làm việc..."></textarea>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Hình ảnh Gig (Tối đa 5)</h3>
+            <div class="image-grid" id="imageGrid">
+                <label class="image-upload-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                    </svg>
+                    <span class="upload-text">Tải lên</span>
+                    <input type="file" accept="image/*" multiple style="display: none;" id="imageInput">
+                </label>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="javascript:void(0)" class="btn-next" onclick="validateAndNext()">Tiếp tục</a>
+        </div>
+    </div>
+
+    <script>
+        var subCategories = {
+            graphics: ['Logo Design', 'Brand Style Guides', 'Business Cards', 'Illustration'],
+            programming: ['Website Development', 'Mobile Apps', 'WordPress', 'Game Development'],
+            marketing: ['SEO', 'Social Media Marketing', 'Content Marketing', 'Email Marketing'],
+            video: ['Video Editing', '3D Animation', 'Whiteboard Animation', 'Intro Videos'],
+            writing: ['Articles Writing', 'Translation', 'Proofreading', 'Creative Writing']
+        };
+
+        var tags = [];
+        var images = [];
+
+        // Load saved data
+        window.onload = function() {
+            var savedData = localStorage.getItem('gigData');
+            if (savedData) {
+                var data = JSON.parse(savedData);
+                document.getElementById('gigTitle').value = data.title || '';
+                document.getElementById('category').value = data.category || '';
+                if (data.category) {
+                    document.getElementById('category').dispatchEvent(new Event('change'));
+                    setTimeout(function() {
+                        document.getElementById('subCategory').value = data.subCategory || '';
+                    }, 100);
+                }
+                tags = data.tags || [];
+                renderTags();
+                document.getElementById('description').value = data.description || '';
+                images = data.images || [];
+                renderImages();
+                document.getElementById('titleCount').textContent = (data.title || '').length;
+            }
+        };
+
+        function saveData() {
+            var data = {
+                title: document.getElementById('gigTitle').value,
+                category: document.getElementById('category').value,
+                subCategory: document.getElementById('subCategory').value,
+                tags: tags,
+                description: document.getElementById('description').value,
+                images: images
+            };
+            localStorage.setItem('gigData', JSON.stringify(data));
+        }
+
+        function validateAndNext() {
+            var gigTitle = document.getElementById('gigTitle');
+            var category = document.getElementById('category');
+            var subCategory = document.getElementById('subCategory');
+            var tagInput = document.getElementById('tagInput');
+            var description = document.getElementById('description');
+
+            var firstError = null;
+
+            gigTitle.style.borderColor = '#ddd';
+            gigTitle.style.boxShadow = 'none';
+            category.style.borderColor = '#ddd';
+            category.style.boxShadow = 'none';
+            subCategory.style.borderColor = '#ddd';
+            subCategory.style.boxShadow = 'none';
+            tagInput.style.borderColor = '#ddd';
+            tagInput.style.boxShadow = 'none';
+            description.style.borderColor = '#ddd';
+            description.style.boxShadow = 'none';
+
+            if (!gigTitle.value.trim()) {
+                gigTitle.style.borderColor = '#f44336';
+                gigTitle.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.2)';
+                if (!firstError) firstError = gigTitle;
+            }
+
+            if (!category.value) {
+                category.style.borderColor = '#f44336';
+                category.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.2)';
+                if (!firstError) firstError = category;
+            }
+
+            if (!subCategory.value) {
+                subCategory.style.borderColor = '#f44336';
+                subCategory.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.2)';
+                if (!firstError) firstError = subCategory;
+            }
+
+            if (tags.length === 0) {
+                tagInput.style.borderColor = '#f44336';
+                tagInput.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.2)';
+                if (!firstError) firstError = tagInput;
+            }
+
+            if (!description.value.trim()) {
+                description.style.borderColor = '#f44336';
+                description.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.2)';
+                if (!firstError) firstError = description;
+            }
+
+            if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(function() {
+                    firstError.focus();
+                }, 500);
+                setTimeout(function() {
+                    alert('⚠️ Vui lòng điền đầy đủ thông tin bắt buộc (có dấu *)');
+                }, 600);
+            } else {
+                saveData();
+                window.location.href = 'create-gig-page2.html';
+            }
+        }
+
+        function addTag() {
+            var value = document.getElementById('tagInput').value.trim();
+            if (value && tags.length < 5 && tags.indexOf(value) === -1) {
+                tags.push(value);
+                renderTags();
+                document.getElementById('tagInput').value = '';
+                saveData();
+            }
+        }
+
+        function removeTag(index) {
+            tags.splice(index, 1);
+            renderTags();
+            saveData();
+        }
+
+        function renderTags() {
+            var html = '';
+            for (var i = 0; i < tags.length; i++) {
+                html += '<div class="tag">' + tags[i] + 
+                        // Đổi button thành a
+                        '<a href="javascript:void(0)" class="tag-remove" onclick="removeTag(' + i + ')">×</a></div>';
+            }
+            document.getElementById('tagsContainer').innerHTML = html;
+            
+            // Xử lý disabled bằng class cho thẻ a
+            var addBtn = document.getElementById('addTagBtn');
+            if (tags.length >= 5) {
+                addBtn.classList.add('disabled');
+            } else {
+                addBtn.classList.remove('disabled');
+            }
+        }
+
+        document.getElementById('addTagBtn').addEventListener('click', addTag);
+        document.getElementById('tagInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addTag();
+            }
+        });
+
+        document.getElementById('gigTitle').addEventListener('input', function(e) {
+            document.getElementById('titleCount').textContent = e.target.value.length;
+            this.style.borderColor = '#ddd';
+            this.style.boxShadow = 'none';
+            saveData();
+        });
+
+        document.getElementById('category').addEventListener('change', function(e) {
+            var subCategorySelect = document.getElementById('subCategory');
+            var category = e.target.value;
+            
+            if (category) {
+                subCategorySelect.disabled = false;
+                var options = '<option value="">Chọn danh mục con</option>';
+                var subs = subCategories[category];
+                for (var i = 0; i < subs.length; i++) {
+                    options += '<option value="' + subs[i] + '">' + subs[i] + '</option>';
+                }
+                subCategorySelect.innerHTML = options;
+            } else {
+                subCategorySelect.disabled = true;
+                subCategorySelect.innerHTML = '<option value="">Chọn danh mục con</option>';
+            }
+            this.style.borderColor = '#ddd';
+            this.style.boxShadow = 'none';
+            saveData();
+        });
+
+        document.getElementById('subCategory').addEventListener('change', function() {
+            this.style.borderColor = '#ddd';
+            this.style.boxShadow = 'none';
+            saveData();
+        });
+
+        document.getElementById('description').addEventListener('input', function() {
+            this.style.borderColor = '#ddd';
+            this.style.boxShadow = 'none';
+            saveData();
+        });
+
+        document.getElementById('tagInput').addEventListener('input', function() {
+            if (tags.length > 0) {
+                this.style.borderColor = '#ddd';
+                this.style.boxShadow = 'none';
+            }
+        });
+
+        function handleImageUpload(e) {
+            var files = Array.from(e.target.files);
+            var remainingSlots = 5 - images.length;
+            var filesToProcess = files.slice(0, remainingSlots);
+            
+            for (var i = 0; i < filesToProcess.length; i++) {
+                (function(file) {
+                    var reader = new FileReader();
+                    reader.onload = function(event) {
+                        if (images.length < 5) {
+                            images.push(event.target.result);
+                            renderImages();
+                            saveData();
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                })(filesToProcess[i]);
+            }
+            e.target.value = '';
+        }
+
+        document.getElementById('imageInput').addEventListener('change', handleImageUpload);
+
+        function removeImage(index) {
+            images.splice(index, 1);
+            renderImages();
+            saveData();
+        }
+
+        function renderImages() {
+            var uploadBox = '<label class="image-upload-box">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>' +
+                '</svg>' +
+                '<span class="upload-text">Tải lên</span>' +
+                '<input type="file" accept="image/*" multiple style="display: none;" class="image-input-new">' +
+                '</label>';
+
+            var imagesHtml = '';
+            for (var i = 0; i < images.length; i++) {
+                imagesHtml += '<div class="image-item">' +
+                    '<img src="' + images[i] + '" alt="Image ' + (i + 1) + '">' +
+                    // Đổi button thành a
+                    '<a href="javascript:void(0)" class="image-remove" onclick="removeImage(' + i + ')">×</a>' +
+                    '</div>';
+            }
+
+            document.getElementById('imageGrid').innerHTML = imagesHtml + (images.length < 5 ? uploadBox : '');
+
+            var newInputs = document.querySelectorAll('.image-input-new');
+            for (var j = 0; j < newInputs.length; j++) {
+                newInputs[j].addEventListener('change', handleImageUpload);
+            }
+        }
+    </script>
+</body>
+</html>

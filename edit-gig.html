@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer - Chỉnh sửa Gig</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* --- Cấu hình chung cho thẻ a đóng vai trò button --- */
+        a.btn-add, a.btn-secondary, a.btn-delete, a.btn-cancel, a.btn-save, a.package-tab, a.btn-modal-cancel, a.btn-modal-confirm {
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+        
+        /* Class disabled giả lập cho thẻ a */
+        a.disabled {
+            pointer-events: none;
+            background: #ccc !important;
+            cursor: not-allowed;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 16px 0;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2196f3;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            color: #666;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: #2196f3;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .page-header {
+            background: white;
+            border-radius: 8px;
+            padding: 24px 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        .page-header .gig-status {
+            padding: 8px 16px;
+            background: #4caf50;
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .required {
+            color: #f44336;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2196f3;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 13px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .tag-input-wrapper {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .tag-input-wrapper input {
+            flex: 1;
+        }
+
+        .btn-add {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: background 0.3s;
+            height: 45px; /* Chiều cao cố định để thẳng hàng với input */
+        }
+
+        .btn-add:hover {
+            background: #1976d2;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .tag-remove {
+            background: none;
+            border: none;
+            color: #1976d2;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+
+        .image-item {
+            aspect-ratio: 1;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-remove {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #f44336;
+            color: white;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .image-upload-box {
+            aspect-ratio: 1;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .image-upload-box:hover {
+            border-color: #2196f3;
+            background: #f0f8ff;
+        }
+
+        .image-upload-box svg {
+            width: 40px;
+            height: 40px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .upload-text {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .package-tabs {
+            display: flex;
+            gap: 8px;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 24px;
+        }
+
+        .package-tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.3s;
+            text-transform: capitalize;
+        }
+
+        .package-tab.active {
+            color: #2196f3;
+            border-bottom-color: #2196f3;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .feature-item input {
+            flex: 1;
+        }
+
+        .btn-remove {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn-remove:hover {
+            background: #d32f2f;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #666;
+            border: 1px solid #ddd;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+            width: fit-content;
+        }
+
+        .btn-secondary:hover {
+            background: #f5f5f5;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .left-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .right-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-cancel {
+            padding: 12px 24px;
+            background: white;
+            color: #666;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-cancel:hover {
+            background: #f5f5f5;
+        }
+
+        .btn-delete {
+            padding: 12px 24px;
+            background: white;
+            color: #f44336;
+            border: 2px solid #f44336;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-delete:hover {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-save {
+            padding: 12px 32px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-save:hover {
+            background: #1976d2;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 32px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .modal-icon {
+            width: 48px;
+            height: 48px;
+            background: #fff3e0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 24px;
+        }
+
+        .modal-header h3 {
+            font-size: 22px;
+            color: #333;
+            margin: 0;
+        }
+
+        .modal-body {
+            margin-bottom: 24px;
+        }
+
+        .modal-body p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .modal-body .warning-text {
+            color: #f44336;
+            font-weight: 600;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .btn-modal-cancel {
+            padding: 10px 20px;
+            background: white;
+            color: #666;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: background 0.3s;
+        }
+
+        .btn-modal-cancel:hover {
+            background: #f5f5f5;
+        }
+
+        .btn-modal-confirm {
+            padding: 10px 20px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .btn-modal-confirm:hover {
+            background: #d32f2f;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .image-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .left-actions,
+            .right-actions {
+                width: 100%;
+            }
+
+            .btn-cancel,
+            .btn-delete,
+            .btn-save {
+                flex: 1;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">⚠️</div>
+                <h3>Xác nhận xóa Gig</h3>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa gig này không?</p>
+                <p class="warning-text">⚠️ Hành động này không thể hoàn tác!</p>
+                <p>Tất cả thông tin về gig sẽ bị xóa vĩnh viễn.</p>
+            </div>
+            <div class="modal-actions">
+                <a href="javascript:void(0)" class="btn-modal-cancel" onclick="closeDeleteModal()">Hủy</a>
+                <a href="javascript:void(0)" class="btn-modal-confirm" onclick="confirmDelete()">Xóa Gig</a>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">Freelancer</div>
+            <div class="header-right">
+                <a href="#" class="back-btn">Quay lại</a>
+                <div class="user-avatar">T</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Chỉnh sửa Gig</h1>
+            <span class="gig-status">Đang hoạt động</span>
+        </div>
+
+        <div class="card">
+            <h2>Thông tin cơ bản</h2>
+            <p class="subtitle">Chỉnh sửa thông tin về dịch vụ của bạn</p>
+            
+            <div class="form-group">
+                <label>Tiêu đề Gig <span class="required">*</span></label>
+                <input type="text" id="gigTitle" maxlength="80" placeholder="Ví dụ: Tôi sẽ thiết kế một logo huy hiệu cổ điển nguyên bản">
+                <div class="char-count"><span id="titleCount">0</span>/80</div>
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Danh mục <span class="required">*</span></label>
+                    <select id="category">
+                        <option value="">Chọn danh mục</option>
+                        <option value="graphics">Graphics & Design</option>
+                        <option value="programming">Programming & Tech</option>
+                        <option value="marketing">Digital Marketing</option>
+                        <option value="video">Video & Animation</option>
+                        <option value="writing">Writing & Translation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Danh mục con <span class="required">*</span></label>
+                    <select id="subCategory" disabled>
+                        <option value="">Chọn danh mục con</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Tags (Tối đa 5) <span class="required">*</span></label>
+                <div class="tag-input-wrapper">
+                    <input type="text" id="tagInput" placeholder="Nhập tag và nhấn Enter">
+                    <a href="javascript:void(0)" class="btn-add" id="addTagBtn" onclick="addTag()">Thêm</a>
+                </div>
+                <div class="tags-container" id="tagsContainer"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Mô tả Gig <span class="required">*</span></h3>
+            <div class="form-group">
+                <textarea id="description" placeholder="Mô tả chi tiết về dịch vụ của bạn, bao gồm những gì bạn sẽ làm, quy trình làm việc..."></textarea>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Hình ảnh Gig (Tối đa 5)</h3>
+            <div class="image-grid" id="imageGrid">
+                <label class="image-upload-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                    </svg>
+                    <span class="upload-text">Tải lên</span>
+                    <input type="file" accept="image/*" multiple style="display: none;" id="imageInput">
+                </label>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Gói Dịch Vụ & Giá</h2>
+            <p class="subtitle">Chỉnh sửa các gói dịch vụ và giá của bạn</p>
+            
+            <div class="package-tabs">
+                <a href="javascript:void(0)" class="package-tab active" data-package="basic" onclick="switchPackage('basic')">Basic</a>
+                <a href="javascript:void(0)" class="package-tab" data-package="standard" onclick="switchPackage('standard')">Standard</a>
+                <a href="javascript:void(0)" class="package-tab" data-package="premium" onclick="switchPackage('premium')">Premium</a>
+            </div>
+
+            <div id="packageContent">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Tên gói</label>
+                        <input type="text" id="packageName" placeholder="Ví dụ: Basic Pack">
+                    </div>
+                    <div class="form-group">
+                        <label>Giá (USD)</label>
+                        <input type="number" id="packagePrice" min="5" placeholder="100">
+                    </div>
+                    <div class="form-group">
+                        <label>Thời gian giao (ngày)</label>
+                        <input type="number" id="packageDelivery" min="1" placeholder="4">
+                    </div>
+                    <div class="form-group">
+                        <label>Số lần chỉnh sửa</label>
+                        <input type="number" id="packageRevisions" min="0" placeholder="2">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tính năng gói</label>
+                    <div id="featuresContainer"></div>
+                    <a href="javascript:void(0)" class="btn-secondary" onclick="addFeature()">
+                        <span>+</span>
+                        Thêm tính năng
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Yêu cầu từ khách hàng</h3>
+            <p class="subtitle">Những thông tin bạn cần từ khách hàng để bắt đầu công việc</p>
+            <div id="requirementsContainer"></div>
+            <a href="javascript:void(0)" class="btn-secondary" onclick="addRequirement()">
+                <span>+</span>
+                Thêm yêu cầu
+            </a>
+        </div>
+
+        <div class="action-buttons">
+            <div class="left-actions">
+                <a href="javascript:void(0)" class="btn-delete" onclick="showDeleteModal()">🗑️ Xóa Gig</a>
+            </div>
+            <div class="right-actions">
+                <a href="javascript:void(0)" class="btn-cancel" onclick="cancelEdit()">Hủy</a>
+                <a href="javascript:void(0)" class="btn-save" onclick="saveGig()">💾 Lưu thay đổi</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var subCategories = {
+            graphics: ['Logo Design', 'Brand Style Guides', 'Business Cards', 'Illustration'],
+            programming: ['Website Development', 'Mobile Apps', 'WordPress', 'Game Development'],
+            marketing: ['SEO', 'Social Media Marketing', 'Content Marketing', 'Email Marketing'],
+            video: ['Video Editing', '3D Animation', 'Whiteboard Animation', 'Intro Videos'],
+            writing: ['Articles Writing', 'Translation', 'Proofreading', 'Creative Writing']
+        };
+
+        var tags = [];
+        var images = [];
+        var currentPackage = 'basic';
+        var packages = {
+            basic: { name: 'Basic Pack', price: '100', delivery: '4', revisions: '2', features: ['Custom Logo Design', 'High Resolution Files'] },
+            standard: { name: 'Standard Pack', price: '200', delivery: '3', revisions: '5', features: ['Everything in Basic', 'Multiple Concepts', 'Social Media Kit'] },
+            premium: { name: 'Premium Pack', price: '350', delivery: '2', revisions: 'Unlimited', features: ['Everything in Standard', 'Brand Guidelines', 'Priority Support'] }
+        };
+        var requirements = ['Tên công ty hoặc thương hiệu', 'Màu sắc yêu thích', 'Phong cách mong muốn'];
+
+        window.onload = function() {
+            loadSampleData();
+            loadPackageData();
+            renderRequirements();
+        };
+
+        function loadSampleData() {
+            var sampleTitle = 'Tôi sẽ thiết kế một logo huy hiệu cổ điển nguyên bản';
+            document.getElementById('gigTitle').value = sampleTitle;
+            document.getElementById('titleCount').textContent = sampleTitle.length;
+            
+            document.getElementById('category').value = 'graphics';
+            document.getElementById('category').dispatchEvent(new Event('change'));
+            setTimeout(function() {
+                document.getElementById('subCategory').value = 'Logo Design';
+            }, 100);
+            
+            tags = ['logo design', 'vintage', 'retro', 'badge', 'insignia'];
+            renderTags();
+            
+            document.getElementById('description').value = 'Xin chào, tôi tên là Jess và đây là dịch vụ Logo Insignias Retro Vintage của tôi.\n\nVới hơn 30.000 dự án đã hoàn thành trên nền tảng này, bạn chắc chắn sẽ hài lòng với công việc của tôi. Hãy cho tôi cơ hội và bạn sẽ không hối tiếc.';
+            
+            images = [
+                'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%232196f3" width="200" height="200"/%3E%3Ctext x="50%25" y="50%25" fill="white" font-size="60" text-anchor="middle" dy=".3em"%3ELogo 1%3C/text%3E%3C/svg%3E',
+                'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%234caf50" width="200" height="200"/%3E%3Ctext x="50%25" y="50%25" fill="white" font-size="60" text-anchor="middle" dy=".3em"%3ELogo 2%3C/text%3E%3C/svg%3E'
+            ];
+            renderImages();
+        }
+
+        function addTag() {
+            var value = document.getElementById('tagInput').value.trim();
+            if (value && tags.length < 5 && tags.indexOf(value) === -1) {
+                tags.push(value);
+                renderTags();
+                document.getElementById('tagInput').value = '';
+            }
+        }
+
+        function removeTag(index) {
+            tags.splice(index, 1);
+            renderTags();
+        }
+
+        function renderTags() {
+            var html = '';
+            for (var i = 0; i < tags.length; i++) {
+                html += '<div class="tag">' + tags[i] + 
+                        '<button class="tag-remove" onclick="removeTag(' + i + ')">×</button></div>';
+            }
+            document.getElementById('tagsContainer').innerHTML = html;
+            
+            // Sửa logic disable cho thẻ a: Thêm/xóa class "disabled"
+            var addBtn = document.getElementById('addTagBtn');
+            if (tags.length >= 5) {
+                addBtn.classList.add('disabled');
+            } else {
+                addBtn.classList.remove('disabled');
+            }
+        }
+
+        document.getElementById('gigTitle').addEventListener('input', function(e) {
+            document.getElementById('titleCount').textContent = e.target.value.length;
+        });
+
+        document.getElementById('tagInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addTag();
+            }
+        });
+
+        document.getElementById('category').addEventListener('change', function(e) {
+            var subCategorySelect = document.getElementById('subCategory');
+            var category = e.target.value;
+            
+            if (category) {
+                subCategorySelect.disabled = false;
+                var options = '<option value="">Chọn danh mục con</option>';
+                var subs = subCategories[category];
+                for (var i = 0; i < subs.length; i++) {
+                    options += '<option value="' + subs[i] + '">' + subs[i] + '</option>';
+                }
+                subCategorySelect.innerHTML = options;
+            } else {
+                subCategorySelect.disabled = true;
+                subCategorySelect.innerHTML = '<option value="">Chọn danh mục con</option>';
+            }
+        });
+
+        function handleImageUpload(e) {
+            var files = Array.from(e.target.files);
+            var remainingSlots = 5 - images.length;
+            var filesToProcess = files.slice(0, remainingSlots);
+            
+            for (var i = 0; i < filesToProcess.length; i++) {
+                (function(file) {
+                    var reader = new FileReader();
+                    reader.onload = function(event) {
+                        if (images.length < 5) {
+                            images.push(event.target.result);
+                            renderImages();
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                })(filesToProcess[i]);
+            }
+            e.target.value = '';
+        }
+
+        document.getElementById('imageInput').addEventListener('change', handleImageUpload);
+
+        function removeImage(index) {
+            images.splice(index, 1);
+            renderImages();
+        }
+
+        function renderImages() {
+            var uploadBox = '<label class="image-upload-box">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>' +
+                '</svg>' +
+                '<span class="upload-text">Tải lên</span>' +
+                '<input type="file" accept="image/*" multiple style="display: none;" class="image-input-new">' +
+                '</label>';
+
+            var imagesHtml = '';
+            for (var i = 0; i < images.length; i++) {
+                imagesHtml += '<div class="image-item">' +
+                    '<img src="' + images[i] + '" alt="Image ' + (i + 1) + '">' +
+                    '<button class="image-remove" onclick="removeImage(' + i + ')">×</button>' +
+                    '</div>';
+            }
+
+            document.getElementById('imageGrid').innerHTML = imagesHtml + (images.length < 5 ? uploadBox : '');
+
+            var newInputs = document.querySelectorAll('.image-input-new');
+            for (var j = 0; j < newInputs.length; j++) {
+                newInputs[j].addEventListener('change', handleImageUpload);
+            }
+        }
+
+        function switchPackage(packageType) {
+            saveCurrentPackage();
+            currentPackage = packageType;
+            
+            var tabs = document.querySelectorAll('.package-tab');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            document.querySelector('[data-package="' + packageType + '"]').classList.add('active');
+            
+            loadPackageData();
+        }
+
+        function saveCurrentPackage() {
+            packages[currentPackage] = {
+                name: document.getElementById('packageName').value,
+                price: document.getElementById('packagePrice').value,
+                delivery: document.getElementById('packageDelivery').value,
+                revisions: document.getElementById('packageRevisions').value,
+                features: getFeatures()
+            };
+        }
+
+        function loadPackageData() {
+            var pkg = packages[currentPackage];
+            document.getElementById('packageName').value = pkg.name || '';
+            document.getElementById('packagePrice').value = pkg.price || '';
+            document.getElementById('packageDelivery').value = pkg.delivery || '';
+            document.getElementById('packageRevisions').value = pkg.revisions || '';
+            renderFeatures();
+        }
+
+        function getFeatures() {
+            var inputs = document.querySelectorAll('.feature-input');
+            var features = [];
+            for (var i = 0; i < inputs.length; i++) {
+                features.push(inputs[i].value);
+            }
+            return features.length > 0 ? features : [''];
+        }
+
+        function renderFeatures() {
+            var container = document.getElementById('featuresContainer');
+            var features = packages[currentPackage].features;
+            var html = '';
+            
+            for (var i = 0; i < features.length; i++) {
+                html += '<div class="feature-item">' +
+                    '<input type="text" placeholder="Ví dụ: Custom Logo Design" class="feature-input" value="' + (features[i] || '') + '" onchange="saveCurrentPackage()">' +
+                    (features.length > 1 ? '<button class="btn-remove" onclick="removeFeature(' + i + ')">×</button>' : '') +
+                    '</div>';
+            }
+            container.innerHTML = html;
+        }
+
+        function addFeature() {
+            packages[currentPackage].features.push('');
+            renderFeatures();
+        }
+
+        function removeFeature(index) {
+            packages[currentPackage].features.splice(index, 1);
+            if (packages[currentPackage].features.length === 0) {
+                packages[currentPackage].features = [''];
+            }
+            renderFeatures();
+        }
+
+        function getRequirements() {
+            var inputs = document.querySelectorAll('.requirement-input');
+            var reqs = [];
+            for (var i = 0; i < inputs.length; i++) {
+                reqs.push(inputs[i].value);
+            }
+            return reqs.length > 0 ? reqs : [''];
+        }
+
+        function renderRequirements() {
+            var container = document.getElementById('requirementsContainer');
+            var html = '';
+            
+            for (var i = 0; i < requirements.length; i++) {
+                html += '<div class="feature-item">' +
+                    '<input type="text" placeholder="Ví dụ: Tên công ty, màu sắc yêu thích..." class="requirement-input" value="' + (requirements[i] || '') + '">' +
+                    (requirements.length > 1 ? '<button class="btn-remove" onclick="removeRequirement(' + i + ')">×</button>' : '') +
+                    '</div>';
+            }
+            container.innerHTML = html;
+        }
+
+        function addRequirement() {
+            requirements.push('');
+            renderRequirements();
+        }
+
+        function removeRequirement(index) {
+            requirements.splice(index, 1);
+            if (requirements.length === 0) {
+                requirements = [''];
+            }
+            renderRequirements();
+        }
+
+        function saveRequirements() {
+            requirements = getRequirements();
+        }
+
+        document.getElementById('packageName').addEventListener('change', saveCurrentPackage);
+        document.getElementById('packagePrice').addEventListener('change', saveCurrentPackage);
+        document.getElementById('packageDelivery').addEventListener('change', saveCurrentPackage);
+        document.getElementById('packageRevisions').addEventListener('change', saveCurrentPackage);
+
+        function showDeleteModal() {
+            document.getElementById('deleteModal').classList.add('show');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.remove('show');
+        }
+
+        function confirmDelete() {
+            closeDeleteModal();
+            
+            setTimeout(function() {
+                alert('✅ Gig đã được xóa thành công!');
+                window.location.href = 'gig.html';
+            }, 300);
+        }
+
+        function cancelEdit() {
+            if (confirm('Bạn có chắc chắn muốn hủy? Các thay đổi chưa lưu sẽ bị mất.')) {
+                window.location.href = 'gig.html';
+            }
+        }
+
+        function saveGig() {
+            saveCurrentPackage();
+            requirements = getRequirements();
+            
+            var gigTitle = document.getElementById('gigTitle');
+            var category = document.getElementById('category');
+            var subCategory = document.getElementById('subCategory');
+            var description = document.getElementById('description');
+
+            var firstError = null;
+
+            gigTitle.style.borderColor = '#ddd';
+            gigTitle.style.boxShadow = 'none';
+            category.style.borderColor = '#ddd';
+            category.style.boxShadow = 'none';
+            subCategory.style.borderColor = '#ddd';
+            subCategory.style.boxShadow = 'none';
+            description.style.borderColor = '#ddd';
+            description.style.boxShadow = 'none';
+
+            if (!gigTitle.value.trim()) {
+                gigTitle.style.borderColor = '#f44336';
+                gigTitle.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.2)';
+                if (!firstError) firstError = gigTitle;
+            }
+
+            if (!category.value) {
+                category.style.borderColor = '#f44336';
+                category.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.2)';
+                if (!firstError) firstError = category;
+            }
+
+            if (!subCategory.value) {
+                subCategory.style.borderColor = '#f44336';
+                subCategory.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.2)';
+                if (!firstError) firstError = subCategory;
+            }
+
+            if (tags.length === 0) {
+                document.getElementById('tagInput').style.borderColor = '#f44336';
+                document.getElementById('tagInput').style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.2)';
+                if (!firstError) firstError = document.getElementById('tagInput');
+            }
+
+            if (!description.value.trim()) {
+                description.style.borderColor = '#f44336';
+                description.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.2)';
+                if (!firstError) firstError = description;
+            }
+
+            if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(function() {
+                    firstError.focus();
+                }, 500);
+                setTimeout(function() {
+                    alert('⚠️ Vui lòng điền đầy đủ thông tin bắt buộc (có dấu *)');
+                }, 600);
+            } else {
+                var gigData = {
+                    title: gigTitle.value,
+                    category: category.value,
+                    subCategory: subCategory.value,
+                    tags: tags,
+                    description: description.value,
+                    images: images,
+                    packages: packages,
+                    requirements: requirements
+                };
+                
+                console.log('Saved Gig Data:', gigData);
+                
+                alert('✅ Gig đã được cập nhật thành công!');
+                window.location.href = 'gig.html';
+            }
+        }
+
+        document.getElementById('gigTitle').addEventListener('input', function() {
+            this.style.borderColor = '#ddd';
+            this.style.boxShadow = 'none';
+        });
+
+        document.getElementById('category').addEventListener('change', function() {
+            this.style.borderColor = '#ddd';
+            this.style.boxShadow = 'none';
+        });
+
+        document.getElementById('subCategory').addEventListener('change', function() {
+            this.style.borderColor = '#ddd';
+            this.style.boxShadow = 'none';
+        });
+
+        document.getElementById('description').addEventListener('input', function() {
+            this.style.borderColor = '#ddd';
+            this.style.boxShadow = 'none';
+        });
+
+        window.onclick = function(event) {
+            var modal = document.getElementById('deleteModal');
+            if (event.target == modal) {
+                closeDeleteModal();
+            }
+        }
+    </script>
+</body>
+</html>
