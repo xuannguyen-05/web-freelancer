@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer - Tạo Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 16px 0;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2196f3;
+            text-decoration: none;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            color: #666;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: #2196f3;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            font-size: 24px;
+            margin-bottom: 24px;
+            color: #333;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            margin-bottom: 32px;
+            padding: 24px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .avatar-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            border: 4px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .avatar-info {
+            flex: 1;
+        }
+
+        .avatar-info h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .avatar-info p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+
+        .btn-upload {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-upload:hover {
+            background: #1976d2;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .required {
+            color: #f44336;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2196f3;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 13px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .languages-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .language-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .language-item select {
+            flex: 1;
+        }
+
+        .btn-remove-lang {
+            display: inline-block;
+            padding: 12px 16px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            white-space: nowrap;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-remove-lang:hover {
+            background: #d32f2f;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            background: white;
+            color: #666;
+            border: 1px solid #ddd;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: #f5f5f5;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 16px;
+            border-radius: 4px;
+            margin-bottom: 24px;
+        }
+
+        .info-box p {
+            font-size: 14px;
+            color: #1565c0;
+            line-height: 1.6;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .btn-cancel {
+            display: inline-block;
+            padding: 12px 32px;
+            background: white;
+            color: #666;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-cancel:hover {
+            background: #f5f5f5;
+        }
+
+        .btn-submit {
+            display: inline-block;
+            padding: 12px 40px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-submit:hover {
+            background: #1976d2;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .avatar-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .language-item {
+                flex-direction: column;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn-cancel,
+            .btn-submit {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">Freelancer</a>
+            <div class="header-right">
+                <a href="index.html" class="back-btn">Quay lại</a>
+                <div class="user-avatar">T</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Tạo Profile Freelancer</h1>
+            <p>Hoàn thiện thông tin để khách hàng hiểu rõ hơn về bạn</p>
+        </div>
+
+        <div class="card">
+            <h2>Ảnh đại diện</h2>
+            
+            <div class="avatar-section">
+                <div class="avatar-preview" id="avatarPreview">
+                    <div class="avatar-placeholder" id="avatarPlaceholder">T</div>
+                    <img src="" alt="" id="avatarImg" style="display: none;">
+                </div>
+                <div class="avatar-info">
+                    <h3>Tải ảnh đại diện</h3>
+                    <p>Ảnh đại diện giúp bạn trông chuyên nghiệp hơn. Chọn ảnh rõ nét, tỷ lệ 1:1</p>
+                    <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+                    <a href="javascript:void(0)" class="btn-upload" onclick="document.getElementById('avatarInput').click()">
+                        📷 Chọn ảnh
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Thông tin cá nhân</h2>
+
+            <div class="info-box">
+                <p><strong>💡 Mẹo:</strong> Hồ sơ đầy đủ và chuyên nghiệp sẽ giúp bạn thu hút nhiều khách hàng hơn!</p>
+            </div>
+
+            <div class="form-group">
+                <label>Tên hiển thị <span class="required">*</span></label>
+                <input type="text" id="displayName" placeholder="VD: Jess" maxlength="50">
+                <div class="char-count"><span id="nameCount">0</span>/50</div>
+            </div>
+
+            <div class="form-group">
+                <label>Chức danh nghề nghiệp <span class="required">*</span></label>
+                <input type="text" id="professionalTitle" placeholder="VD: Nhà thiết kế logo và nhận diện thương hiệu" maxlength="100">
+                <div class="char-count"><span id="titleCount">0</span>/100</div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Quốc gia <span class="required">*</span></label>
+                    <select id="country">
+                        <option value="">Chọn quốc gia</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Vietnam">Vietnam</option>
+                        <option value="USA">United States</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Singapore">Singapore</option>
+                        <option value="Thailand">Thailand</option>
+                        <option value="Philippines">Philippines</option>
+                        <option value="Indonesia">Indonesia</option>
+                        <option value="Malaysia">Malaysia</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Thành viên từ <span class="required">*</span></label>
+                    <input type="text" id="memberSince" placeholder="VD: Tháng 1 năm 2014">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Thời gian phản hồi trung bình</label>
+                    <input type="text" id="responseTime" placeholder="VD: 3 giờ">
+                </div>
+
+                <div class="form-group">
+                    <label>Giao hàng cuối cùng</label>
+                    <input type="text" id="lastDelivery" placeholder="VD: khoảng 2 giờ">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Ngôn ngữ</h2>
+            
+            <div class="languages-section" id="languagesContainer">
+                <div class="language-item">
+                    <select class="language-select">
+                        <option value="">Chọn ngôn ngữ</option>
+                        <option value="Tiếng Anh">Tiếng Anh</option>
+                        <option value="Tiếng Tây Ban Nha">Tiếng Tây Ban Nha</option>
+                        <option value="Tiếng Đức">Tiếng Đức</option>
+                        <option value="Tiếng Ý">Tiếng Ý</option>
+                        <option value="Tiếng Việt">Tiếng Việt</option>
+                        <option value="中文">中文 (Chinese)</option>
+                        <option value="日本語">日本語 (Japanese)</option>
+                        <option value="한국어">한국어 (Korean)</option>
+                        <option value="Français">Français</option>
+                        <option value="Português">Português</option>
+                    </select>
+                    <select class="language-level">
+                        <option value="">Trình độ</option>
+                        <option value="Cơ bản">Cơ bản</option>
+                        <option value="Trung bình">Trung bình</option>
+                        <option value="Thành thạo">Thành thạo</option>
+                        <option value="Bản ngữ">Bản ngữ</option>
+                    </select>
+                </div>
+            </div>
+            
+            <a href="javascript:void(0)" class="btn-secondary" onclick="addLanguage()">
+                <span>+</span>
+                Thêm ngôn ngữ
+            </a>
+        </div>
+
+        <div class="card">
+            <h2>Giới thiệu bản thân</h2>
+            
+            <div class="form-group">
+                <label>Mô tả về bạn và dịch vụ của bạn <span class="required">*</span></label>
+                <textarea id="bio" placeholder="VD: Xin chào, chúng tôi là Juan &quot;Bauti&quot; và Mara &quot;Jess&quot; P., một cặp vợ chồng thiết kế đồ họa sống tại Buenos Aires, Argentina. Chúng tôi yêu thích mọi hình thức thiết kế và làm việc với niềm đam mê và sự tận tâm cao độ..." maxlength="600"></textarea>
+                <div class="char-count"><span id="bioCount">0</span>/600</div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="javascript:void(0)" class="btn-cancel" onclick="cancelProfile()">Hủy</a>
+            <a href="javascript:void(0)" class="btn-submit" onclick="saveProfile()">💾 Lưu Profile</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('avatarInput').addEventListener('change', function(e) {
+            var file = e.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('avatarImg').src = event.target.result;
+                    document.getElementById('avatarImg').style.display = 'block';
+                    document.getElementById('avatarPlaceholder').style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('displayName').addEventListener('input', function(e) {
+            document.getElementById('nameCount').textContent = e.target.value.length;
+        });
+
+        document.getElementById('professionalTitle').addEventListener('input', function(e) {
+            document.getElementById('titleCount').textContent = e.target.value.length;
+        });
+
+        document.getElementById('bio').addEventListener('input', function(e) {
+            document.getElementById('bioCount').textContent = e.target.value.length;
+        });
+
+        function addLanguage() {
+            var container = document.getElementById('languagesContainer');
+            var languageCount = container.querySelectorAll('.language-item').length;
+            
+            if (languageCount < 10) {
+                var div = document.createElement('div');
+                div.className = 'language-item';
+                div.innerHTML = '<select class="language-select">' +
+                    '<option value="">Chọn ngôn ngữ</option>' +
+                    '<option value="Tiếng Anh">Tiếng Anh</option>' +
+                    '<option value="Tiếng Tây Ban Nha">Tiếng Tây Ban Nha</option>' +
+                    '<option value="Tiếng Đức">Tiếng Đức</option>' +
+                    '<option value="Tiếng Ý">Tiếng Ý</option>' +
+                    '<option value="Tiếng Việt">Tiếng Việt</option>' +
+                    '<option value="中文">中文 (Chinese)</option>' +
+                    '<option value="日本語">日本語 (Japanese)</option>' +
+                    '<option value="한국어">한국어 (Korean)</option>' +
+                    '<option value="Français">Français</option>' +
+                    '<option value="Português">Português</option>' +
+                    '</select>' +
+                    '<select class="language-level">' +
+                    '<option value="">Trình độ</option>' +
+                    '<option value="Cơ bản">Cơ bản</option>' +
+                    '<option value="Trung bình">Trung bình</option>' +
+                    '<option value="Thành thạo">Thành thạo</option>' +
+                    '<option value="Bản ngữ">Bản ngữ</option>' +
+                    '</select>' +
+                    '<a href="javascript:void(0)" class="btn-remove-lang" onclick="this.parentElement.remove()">×</a>';
+                
+                container.appendChild(div);
+            }
+        }
+
+        function saveProfile() {
+            var displayName = document.getElementById('displayName');
+            var professionalTitle = document.getElementById('professionalTitle');
+            var country = document.getElementById('country');
+            var memberSince = document.getElementById('memberSince');
+            var bio = document.getElementById('bio');
+
+            var firstError = null;
+
+            displayName.style.borderColor = '#ddd';
+            displayName.style.boxShadow = 'none';
+            professionalTitle.style.borderColor = '#ddd';
+            professionalTitle.style.boxShadow = 'none';
+            country.style.borderColor = '#ddd';
+            country.style.boxShadow = 'none';
+            memberSince.style.borderColor = '#ddd';
+            memberSince.style.boxShadow = 'none';
+            bio.style.borderColor = '#ddd';
+            bio.style.boxShadow = 'none';
+
+            if (!displayName.value.trim()) {
+                displayName.style.borderColor = '#f44336';
+                displayName.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.2)';
+                if (!firstError) firstError = displayName;
+            }
+
+            if (!professionalTitle.value.trim()) {
+                professionalTitle.style.borderColor = '#f44336';
+                professionalTitle.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.2)';
+                if (!firstError) firstError = professionalTitle;
+            }
+
+            if (!country.value) {
+                country.style.borderColor = '#f44336';
+                country.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.2)';
+                if (!firstError) firstError = country;
+            }
+
+            if (!memberSince.value.trim()) {
+                memberSince.style.borderColor = '#f44336';
+                memberSince.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.2)';
+                if (!firstError) firstError = memberSince;
+            }
+
+            if (!bio.value.trim()) {
+                bio.style.borderColor = '#f44336';
+                bio.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.2)';
+                if (!firstError) firstError = bio;
+            }
+
+            if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(function() {
+                    firstError.focus();
+                }, 500);
+                setTimeout(function() {
+                    alert('⚠️ Vui lòng điền đầy đủ thông tin bắt buộc (có dấu *)');
+                }, 600);
+                return;
+            }
+
+            var languageItems = document.querySelectorAll('.language-item');
+            var languages = [];
+            for (var i = 0; i < languageItems.length; i++) {
+                var lang = languageItems[i].querySelector('.language-select').value;
+                var level = languageItems[i].querySelector('.language-level').value;
+                if (lang && level) {
+                    languages.push({ language: lang, level: level });
+                }
+            }
+
+            var profileData = {
+                avatar: document.getElementById('avatarImg').src,
+                displayName: displayName.value,
+                professionalTitle: professionalTitle.value,
+                country: country.value,
+                memberSince: memberSince.value,
+                responseTime: document.getElementById('responseTime').value,
+                lastDelivery: document.getElementById('lastDelivery').value,
+                languages: languages,
+                bio: bio.value
+            };
+
+            console.log('Profile Data:', profileData);
+            localStorage.setItem('freelancerProfile', JSON.stringify(profileData));
+
+            alert('✅ Profile đã được lưu thành công!');
+            window.location.href = 'gig.html';
+        }
+
+        function cancelProfile() {
+            if (confirm('Bạn có chắc chắn muốn hủy? Các thay đổi chưa lưu sẽ bị mất.')) {
+                window.location.href = 'gig.html';
+            }
+        }
+
+        document.getElementById('displayName').addEventListener('input', function() {
+            this.style.borderColor = '#ddd';
+            this.style.boxShadow = 'none';
+        });
+
+        document.getElementById('professionalTitle').addEventListener('input', function() {
+            this.style.borderColor = '#ddd';
+            this.style.boxShadow = 'none';
+        });
+
+        document.getElementById('country').addEventListener('change', function() {
+            this.style.borderColor = '#ddd';
+            this.style.boxShadow = 'none';
+        });
+
+        document.getElementById('memberSince').addEventListener('input', function() {
+            this.style.borderColor = '#ddd';
+            this.style.boxShadow = 'none';
+        });
+
+        document.getElementById('bio').addEventListener('input', function() {
+            this.style.borderColor = '#ddd';
+            this.style.boxShadow = 'none';
+        });
+    </script>
+</body>
+</html>
