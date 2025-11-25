@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./ThanhToan.css" />
+    <title>Chi tiết đơn hàng - Freelancer</title>
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo">Freelance<span style="color: #404145">.</span></div>
+    </div>
+
+    <div class="container">
+      <div class="payment-section">
+        <h2>Chi tiết đơn hàng</h2>
+
+        <div class="gig-item">
+          <img
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect fill='%23FF6B6B' width='80' height='80'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='30' fill='white'%3E🎨%3C/text%3E%3C/svg%3E"
+            alt="Logo Design"
+            class="gig-image"
+          />
+          <div class="gig-info">
+            <div class="gig-title">
+              Tôi sẽ thiết kế logo chuyên nghiệp và bộ nhận diện thương hiệu
+              hoàn chỉnh
+            </div>
+            <div class="gig-meta">
+              <span>Gói cơ bản</span>
+              <span>•</span>
+              <span>Giao hàng trong 5 ngày</span>
+              <span>•</span>
+              <span>2 lần sửa đổi</span>
+            </div>
+            <div class="seller-info">
+              <div class="seller-avatar"></div>
+              <span>Jess</span>
+              <span class="rating">
+                <span class="star">★</span>
+                <span>4.8</span>
+              </span>
+              <span class="badge">Đánh giá cao nhất ⭐⭐⭐</span>
+            </div>
+          </div>
+        </div>
+
+        <h2>Phương thức thanh toán</h2>
+
+        <div class="payment-methods">
+          <div class="payment-option active">
+            <input type="radio" name="payment" checked />
+            <span>Thẻ tín dụng và thẻ ghi nợ</span>
+            <div class="payment-icons">
+              <div class="card-icon visa">VISA</div>
+              <div class="card-icon mastercard">MC</div>
+              <div class="card-icon diners">DC</div>
+              <div class="card-icon jcb">JCB</div>
+            </div>
+          </div>
+
+          <div class="payment-option">
+            <input type="radio" name="payment" />
+            <div class="paypal-option">
+              <span style="color: #003087; font-weight: 600">Pay</span
+              ><span style="color: #009cde; font-weight: 600">Pal</span>
+            </div>
+          </div>
+        </div>
+
+        <form id="paymentForm">
+          <div class="form-group">
+            <label for="cardNumber">Card number</label>
+            <input
+              type="text"
+              id="cardNumber"
+              placeholder="1234 5678 9012 3456"
+              maxlength="19"
+            />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="expiry">Expiration date</label>
+              <input
+                type="text"
+                id="expiry"
+                placeholder="MM / YY"
+                maxlength="7"
+              />
+            </div>
+            <div class="form-group">
+              <label for="cvv"
+                >Security code <span class="info-icon">ⓘ</span></label
+              >
+              <input type="text" id="cvv" placeholder="123" maxlength="4" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cardName">Tên chủ thẻ</label>
+            <input
+              type="text"
+              id="cardName"
+              placeholder="Như đã viết trên thẻ"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="cardHolder">Tên hiển thị thẻ (Tùy chọn)</label>
+            <input
+              type="text"
+              id="cardHolder"
+              placeholder="ví dụ: Thẻ tiếp thị, Thẻ đội ngũ pháp lý..."
+              maxlength="30"
+            />
+            <div class="char-count"><span id="charCount">0</span>/30</div>
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="saveFuture" checked />
+            <label for="saveFuture"
+              >Lưu thẻ này để thanh toán trong tương lai
+              <span class="info-icon">ⓘ</span></label
+            >
+          </div>
+        </form>
+      </div>
+
+      <div class="summary">
+        <h3>Tóm tắt giá</h3>
+        <div class="summary-row">
+          <span>Gói đã chọn</span>
+          <span>2.000.000 vnd</span>
+        </div>
+        <div class="summary-row">
+          <span>Phí dịch vụ <span class="info-icon">ⓘ</span></span>
+          <span>25.000 vnd</span>
+        </div>
+        <div class="summary-row total">
+          <span>Tổng cộng</span>
+          <span>2.025.000 vnd </span>
+        </div>
+
+        <div class="terms-links">
+          Bằng cách nhấp vào nút, bạn đồng ý với
+          <a href="#">Điều khoản dịch vụ</a> và
+          <a href="#">Điều khoản thanh toán của Fiverr</a>
+        </div>
+
+        <button
+          class="checkout-btn"
+          onclick="window.location.href='./hoanthanhdonhang.html'"
+        >
+          Xác nhận & Thanh toán
+        </button>
+
+        <div class="secure-payment">
+          <span class="lock-icon">🔒</span> Thanh toán bảo mật SSL
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Format card number
+      document
+        .getElementById("cardNumber")
+        .addEventListener("input", function (e) {
+          let value = e.target.value.replace(/\s/g, "");
+          let formattedValue = value.match(/.{1,4}/g)?.join(" ") || value;
+          e.target.value = formattedValue;
+        });
+
+      // Format expiry date
+      document.getElementById("expiry").addEventListener("input", function (e) {
+        let value = e.target.value.replace(/\s/g, "").replace(/\//g, "");
+        if (value.length >= 2) {
+          e.target.value = value.slice(0, 2) + " / " + value.slice(2, 4);
+        } else {
+          e.target.value = value;
+        }
+      });
+
+      // Character counter
+      document
+        .getElementById("cardHolder")
+        .addEventListener("input", function (e) {
+          document.getElementById("charCount").textContent =
+            e.target.value.length;
+        });
+
+      // Payment option selection
+      document.querySelectorAll(".payment-option").forEach((option) => {
+        option.addEventListener("click", function () {
+          document
+            .querySelectorAll(".payment-option")
+            .forEach((opt) => opt.classList.remove("active"));
+          this.classList.add("active");
+          this.querySelector('input[type="radio"]').checked = true;
+        });
+      });
+
+      function processPayment() {
+        alert("Đang xử lý thanh toán...");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,318 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #404145;
+  line-height: 1.6;
+}
+
+.header {
+  background: white;
+  padding: 20px 0;
+  border-bottom: 1px solid #e4e5e7;
+}
+
+.logo {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  font-size: 32px;
+  font-weight: bold;
+  color: #2196f3;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 30px;
+}
+
+.order-details,
+.payment-section {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 25px;
+  color: #404145;
+}
+
+.gig-item {
+  display: flex;
+  gap: 15px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.gig-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.gig-info {
+  flex: 1;
+}
+
+.gig-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #404145;
+}
+
+.gig-meta {
+  display: flex;
+  gap: 15px;
+  font-size: 13px;
+  color: #62646a;
+  margin-bottom: 10px;
+}
+
+.seller-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.seller-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #1dbf73;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.star {
+  color: #ffb33e;
+}
+
+.badge {
+  background: #ffe0b3;
+  color: #b5700f;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.payment-methods {
+  margin-bottom: 25px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  border: 2px solid #dadbdd;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.payment-option:hover {
+  border-color: #1dbf73;
+}
+
+.payment-option.active {
+  border-color: #1dbf73;
+  background: #f7fff9;
+}
+
+.payment-icons {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.card-icon {
+  width: 32px;
+  height: 20px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: white;
+}
+
+.visa {
+  background: #1434cb;
+}
+.mastercard {
+  background: #eb001b;
+}
+.diners {
+  background: #0079be;
+}
+.jcb {
+  background: #0066b2;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #404145;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dadbdd;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border 0.3s;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #1dbf73;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.char-count {
+  text-align: right;
+  font-size: 12px;
+  color: #95979d;
+  margin-top: 5px;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-top: 3px;
+}
+
+.checkbox-group label {
+  font-weight: normal;
+  font-size: 14px;
+  margin: 0;
+}
+
+.summary {
+  background: white;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.summary h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #404145;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.summary-row.total {
+  font-size: 18px;
+  font-weight: 700;
+  padding-top: 15px;
+  border-top: 1px solid #dadbdd;
+  margin-top: 15px;
+}
+
+.info-icon {
+  color: #95979d;
+  cursor: help;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 14px;
+  background: #222325;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 15px;
+  transition: background 0.3s;
+}
+
+.checkout-btn:hover {
+  background: #404145;
+}
+
+.secure-payment {
+  text-align: center;
+  font-size: 13px;
+  color: #62646a;
+}
+
+.lock-icon {
+  color: #1dbf73;
+}
+
+.terms-links {
+  font-size: 12px;
+  color: #62646a;
+  margin-top: 15px;
+}
+
+.terms-links a {
+  color: #1dbf73;
+  text-decoration: underline;
+}
+
+.paypal-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.paypal-logo {
+  width: 80px;
+}
+
+@media (max-width: 968px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}

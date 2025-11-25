@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fiverr - Graphics & Design</title>
+    <link rel="stylesheet" href="./W1.css" />
+    <style>
+      /* Style cho continue button khi đổi sang thẻ a */
+      .continue-btn {
+        display: block;
+        width: 100%;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-container">
+        <div class="logo">Freelancer</div>
+        <div class="search-bar">
+          <input
+            type="text"
+            placeholder="What service are you looking for today?"
+          />
+          <button>Search</button>
+        </div>
+        <div class="header-icons">
+          <button class="icon-btn">Bell</button>
+          <button class="icon-btn">Mail</button>
+          <button class="icon-btn">Heart</button>
+          <span>Orders</span>
+          <div class="user-avatar">M</div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="nav">
+      <div class="nav-container">
+        <button class="nav-btn">Post a brief</button>
+        <a href="#" class="nav-link">Graphics & Design</a>
+        <a href="#" class="nav-link">Digital Marketing</a>
+        <a href="#" class="nav-link">Writing & Translation</a>
+        <a href="#" class="nav-link">Music & Audio</a>
+      </div>
+    </nav>
+
+    <div class="breadcrumb">
+      <a href="#">Home</a>
+      <span>/</span>
+      <a href="#">Graphics & Design</a>
+      <span>/</span>
+      <a href="#">Logo & Brand Identity</a>
+    </div>
+
+    <div class="container">
+      <div class="gig-content">
+        <h1 class="gig-title">
+          Tôi sẽ thiết kế logo chuyên nghiệp và bộ nhận diện thương hiệu hoàn
+          chỉnh
+        </h1>
+
+        <div class="seller-info">
+          <div class="seller-avatar">
+            <img src="./min.jpg" alt="Nhật Minh" />
+          </div>
+          <div class="seller-details">
+            <h3>Nhật Minh</h3>
+            <div class="badges">
+              <span class="badge badge-pro">Vetted Pro</span>
+              <span class="badge badge-top">Top Rated</span>
+            </div>
+            <div class="rating">
+              <span class="stars">★★★★★</span>
+              <strong>5.0</strong>
+              <span>(1.243 reviews)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="repeat-buyers">
+          <strong>Chuyên gia thiết kế đồ họa uy tín!</strong>
+          <p>Tạo nên thương hiệu độc đáo và ấn tượng.</p>
+        </div>
+
+        <div class="image-gallery">
+          <div class="main-image-container">
+            <!-- 5 ảnh chính - Thay đổi src thành link ảnh của bạn -->
+            <img
+              src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800"
+              alt="Logo Design 1"
+              class="main-image active"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=800"
+              alt="Logo Design 2"
+              class="main-image"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1558655146-d09347e92766?w=800"
+              alt="Brand Identity"
+              class="main-image"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800"
+              alt="Business Card"
+              class="main-image"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800"
+              alt="Brochure Design"
+              class="main-image"
+            />
+
+            <button class="gallery-nav prev">‹</button>
+            <button class="gallery-nav next">›</button>
+          </div>
+
+          <div class="thumbnail-list">
+            <div class="thumbnail active" data-index="0">
+              <img
+                src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=200"
+                alt="Thumb 1"
+              />
+            </div>
+            <div class="thumbnail" data-index="1">
+              <img
+                src="https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=200"
+                alt="Thumb 2"
+              />
+            </div>
+            <div class="thumbnail" data-index="2">
+              <img
+                src="https://images.unsplash.com/photo-1558655146-d09347e92766?w=200"
+                alt="Thumb 3"
+              />
+            </div>
+            <div class="thumbnail" data-index="3">
+              <img
+                src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=200"
+                alt="Thumb 4"
+              />
+            </div>
+            <div class="thumbnail" data-index="4">
+              <img
+                src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=200"
+                alt="Thumb 5"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="reviews">
+          <div class="section-header">
+            <h2>Khách hàng hài lòng</h2>
+            <a href="#">Xem tất cả đánh giá</a>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">H</div>
+              <div class="review-info">
+                <h4>hoang_coffee - Vietnam</h4>
+                <div class="rating">
+                  <span class="stars">★★★★★</span>
+                  <strong>5</strong>
+                </div>
+              </div>
+            </div>
+            <p class="review-text">
+              Tuấn đã thiết kế logo tuyệt vời cho quán cà phê của tôi. Logo vừa
+              hiện đại vừa mang đậm bản sắc Việt Nam. Bộ nhận diện thương hiệu
+              hoàn chỉnh với card visit, menu, poster rất chuyên nghiệp. Khách
+              hàng đều khen ngợi!
+            </p>
+            <p class="review-date">1 tuần trước</p>
+          </div>
+        </div>
+
+        <div class="about-gig">
+          <h2>Về dịch vụ này</h2>
+          <p>
+            Xin chào! Tôi là Nguyễn Minh Tuấn, designer chuyên nghiệp với 8 năm
+            kinh nghiệm trong lĩnh vực thiết kế đồ họa và branding.
+          </p>
+          <p>
+            <strong>
+              Tôi tạo ra logo và bộ nhận diện thương hiệu độc đáo, giúp doanh
+              nghiệp của bạn nổi bật và ghi dấu ấn.
+            </strong>
+          </p>
+          <p>
+            Với hơn 1.500+ dự án thành công, tôi hiểu rõ cách biến ý tưởng thành
+            hình ảnh mạnh mẽ truyền tải thông điệp thương hiệu.
+          </p>
+
+          <h3>Dịch vụ thiết kế của tôi:</h3>
+          <ul>
+            <li>Logo Design - Thiết kế logo độc quyền</li>
+            <li>Brand Identity - Bộ nhận diện thương hiệu hoàn chỉnh</li>
+            <li>Business Card - Thiết kế card visit chuyên nghiệp</li>
+            <li>Brochure & Flyer - Tài liệu marketing ấn tượng</li>
+          </ul>
+
+          <h3>Logo package bao gồm:</h3>
+          <ul>
+            <li>3-5 concept ban đầu để lựa chọn</li>
+            <li>Unlimited revisions cho đến khi hài lòng</li>
+            <li>File vector (AI, EPS, SVG) - chất lượng cao</li>
+            <li>File PNG/JPG với nền trong suốt</li>
+            <li>Màu sắc tùy chỉnh và nhiều phiên bản</li>
+            <li>Brand guideline - hướng dẫn sử dụng logo</li>
+            <li>Source file đầy đủ</li>
+            <li>Bản quyền sở hữu 100%</li>
+          </ul>
+
+          <h3>Thiết kế nâng cao:</h3>
+          <ul>
+            <li>Mascot & Character design</li>
+            <li>Packaging design - thiết kế bao bì sản phẩm</li>
+            <li>Social media kit - template cho mạng xã hội</li>
+            <li>Presentation design - thiết kế slide chuyên nghiệp</li>
+            <li>Infographic - trực quan hóa thông tin</li>
+            <li>Banner & Poster quảng cáo</li>
+          </ul>
+
+          <h3>Cam kết của tôi:</h3>
+          <ul>
+            <li>Thiết kế 100% độc quyền, không dùng template</li>
+            <li>Nghiên cứu kỹ thị trường và đối thủ</li>
+            <li>Phong cách hiện đại, phù hợp xu hướng</li>
+            <li>Giao tiếp liên tục trong suốt dự án</li>
+            <li>Hỗ trợ chỉnh sửa sau khi hoàn thành</li>
+          </ul>
+
+          <div class="gig-details">
+            <div class="detail-item">
+              <strong>Công cụ</strong>
+              <span>Adobe Illustrator, Photoshop, Figma</span>
+            </div>
+            <div class="detail-item">
+              <strong>Bàn giao</strong>
+              <span>All Source Files, Brand Guidelines</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Section -->
+      <div class="profile-section">
+        <h2 class="section-title">Làm quen với Nhật Minh</h2>
+
+        <div class="profile-card">
+          <div class="profile-header">
+            <div class="profile-image">
+              <img src="./min.jpg" alt="Nhật Minh" />
+            </div>
+            <div class="profile-info">
+              <h3 class="profile-name">Nhật Minh</h3>
+              <span class="pro-badge">Đã kiểm duyệt Pro</span>
+              <p class="profile-tagline">
+                Senior Graphic Designer & Brand Strategist
+              </p>
+              <div class="rating">
+                <span class="stars">★★★★★</span>
+                <span class="rating-score">5.0</span>
+                <span class="rating-count">( 1.243 )</span>
+              </div>
+              <span class="top-rated-badge">Đánh giá cao nhất ★★★</span>
+            </div>
+          </div>
+          <button class="contact-btn">Liên hệ với tôi</button>
+        </div>
+
+        <div class="description-box">
+          <p>
+            Nhật Minh là designer được Fiverr Pro công nhận, với chuyên môn về
+            logo và brand identity. Các thiết kế của anh đã giúp hàng trăm
+            thương hiệu tạo dấu ấn trên thị trường.
+          </p>
+        </div>
+
+        <div class="verified-section">
+          <h4 class="verified-title">Đã được kiểm duyệt cho</h4>
+          <div class="verified-items">
+            <div class="verified-item">
+              <span class="checkmark">✓</span>
+              <span>Logo Design</span>
+            </div>
+            <div class="verified-item">
+              <span class="checkmark">✓</span>
+              <span>Brand Identity</span>
+            </div>
+            <div class="verified-item">
+              <span class="checkmark">✓</span>
+              <span>Illustration Design</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-section">
+          <div class="stat-row">
+            <div class="stat-item">
+              <span class="stat-label">Từ</span>
+              <span class="stat-value">Vietnam</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Thành viên từ</span>
+              <span class="stat-value">Tháng 3 năm 2016</span>
+            </div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-item">
+              <span class="stat-label">Thời gian phản hồi trung bình</span>
+              <span class="stat-value">1 giờ</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Giao hàng cuối cùng</span>
+              <span class="stat-value">khoảng 2 giờ</span>
+            </div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-item stat-full">
+              <span class="stat-label">Ngôn ngữ</span>
+              <span class="stat-value">Tiếng Việt, Tiếng Anh</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bio-section">
+          <p class="bio-text">
+            Xin chào! Tôi là Minh Tuấn, một graphic designer đam mê tạo ra những
+            thiết kế có ý nghĩa. Tôi tin rằng logo tốt không chỉ đẹp mà còn phải
+            kể được câu chuyện thương hiệu. Hãy để tôi giúp bạn xây dựng hình
+            ảnh thương hiệu mạnh mẽ và khác biệt!
+          </p>
+        </div>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-tabs">
+          <button class="pricing-tab active">Basic</button>
+          <button class="pricing-tab">Standard</button>
+          <button class="pricing-tab">Premium</button>
+        </div>
+
+        <div class="price">
+          2.000.000<span style="font-size: 0.7em; margin-left: 4px">₫</span>
+        </div>
+        <div class="save-notice">
+          Tiết kiệm đến 15% với gói Subscribe to Save
+        </div>
+
+        <div class="package-details">
+          <h4>Basic Package</h4>
+          <p>
+            Thiết kế logo cơ bản với 3 concepts. Bao gồm file vector và revision
+            không giới hạn.
+          </p>
+        </div>
+
+        <div class="delivery-info">
+          <div class="info-item">
+            <span>⏰</span>
+            <span>3-day delivery</span>
+          </div>
+          <div class="info-item">
+            <span>🔄</span>
+            <span>Unlimited Revisions</span>
+          </div>
+        </div>
+
+        <a href="./thanh_toan.html" class="continue-btn">Continue</a>
+        <button class="contact-btn">Contact me</button>
+
+        <div class="hourly-offer">
+          <h4>Cần bộ nhận diện hoàn chỉnh?</h4>
+          <p>
+            Gói premium bao gồm logo, business card, letterhead, và brand
+            guidelines.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Pricing tabs
+      var tabs = document.querySelectorAll(".pricing-tab");
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          tabs.forEach(function (t) {
+            t.classList.remove("active");
+          });
+          tab.classList.add("active");
+        });
+      });
+
+      // Image Gallery Script
+      var mainImages = document.querySelectorAll(".main-image");
+      var thumbnails = document.querySelectorAll(".thumbnail");
+      var prevBtn = document.querySelector(".gallery-nav.prev");
+      var nextBtn = document.querySelector(".gallery-nav.next");
+      var currentIndex = 0;
+
+      function showImage(index) {
+        // Ẩn tất cả ảnh
+        mainImages.forEach(function (img) {
+          img.classList.remove("active");
+        });
+        thumbnails.forEach(function (thumb) {
+          thumb.classList.remove("active");
+        });
+
+        // Hiện ảnh được chọn
+        mainImages[index].classList.add("active");
+        thumbnails[index].classList.add("active");
+        currentIndex = index;
+      }
+
+      // Nút Previous
+      prevBtn.addEventListener("click", function () {
+        var newIndex =
+          (currentIndex - 1 + mainImages.length) % mainImages.length;
+        showImage(newIndex);
+      });
+
+      // Nút Next
+      nextBtn.addEventListener("click", function () {
+        var newIndex = (currentIndex + 1) % mainImages.length;
+        showImage(newIndex);
+      });
+
+      // Click vào thumbnail
+      thumbnails.forEach(function (thumb) {
+        thumb.addEventListener("click", function () {
+          var index = parseInt(this.getAttribute("data-index"));
+          showImage(index);
+        });
+      });
+    </script>
+  </body>
+</html>
